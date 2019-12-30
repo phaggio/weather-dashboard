@@ -21,8 +21,9 @@
             <div class="col col-sm-4 col-md-4">
                 <h4 class="">Search for a City: </h4>
                 <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Sea rch" aria-label="Search">
-                    <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
+                    <input class="form-control mr-sm-2" id="search-city" type="search" placeholder="Search city"
+                        aria-label="Search">
+                    <button class="btn btn-outline-secondary my-2 my-sm-0" id="search-button" type="submit">Search</button>
                 </form>
                 <div class="my-4 border border-secondary">
                     <ul class="list-group" id="recent-cities">
@@ -44,10 +45,11 @@
             </div>
 
             <div class="col-12 col-sm-8 col-md-8 border border-solid">
-                <div class="row border border-success">
-                    <h6>WEATHER DISPLAY</h6>
+                <div class="">
+                    <h5>City Name</h5>
+                    <p>Status</p>
                 </div>
-                <div class="row border border-dark">
+                <div class="">
                     <h6>5 Days Forecast</h6>
                 </div>
             </div>
@@ -58,6 +60,9 @@
 
 
 
+
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- From Bootstrap -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
@@ -68,6 +73,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+    <script src="./script.js"></script>
 </body>
 
 </html>
