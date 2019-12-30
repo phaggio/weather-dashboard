@@ -9,17 +9,18 @@ var title = 'space+jam';
 var query = 'https://www.omdbapi.com/?t=' + title + '&y=&plot=short&apikey=trilogy';
 
 
+// $.ajax({
+//     url: query,
+//     method: 'GET'
+//   }).then(function(response) {
+//     console.log(response);
+//     console.log(response.Runtime);
+//   });
+
 $.ajax({
-    url: query,
-    method: 'GET'
-  }).then(function(response) {
-    console.log(response);
-    console.log(response.Runtime);
-  });
-$.ajax({
-    url: queryURL + city,
+    url: URL + key,
     method: 'GET',
-    dataType: 'json'
+    // dataType: 'json'
   }).then(function(response) {
     console.log(response);
   });
