@@ -3,5 +3,7 @@ var searchButton = $('#search-button');
 
 searchButton.on('click', function () {
     event.preventDefault();
-    console.log(city.val());
+    let searchCity = city.val();
+    console.log(searchCity);
+    city.val('');
 });
