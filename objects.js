@@ -37,73 +37,10 @@ let forecastObj = {
             "dt_txt": "2019-12-31 03:00:00"
         },
         {
-            "dt": 1577772000,
-            "main": {
-                "temp": 279.45,
-                "feels_like": 275.71,
-                "temp_min": 279.45,
-                "temp_max": 279.49,
-                "pressure": 1024,
-                "sea_level": 1024,
-                "grnd_level": 1016,
-                "humidity": 84,
-                "temp_kf": -0.04
-            },
-            "weather": [
-                {
-                    "id": 804,
-                    "main": "Clouds",
-                    "description": "overcast clouds",
-                    "icon": "04n"
-                }
-            ],
-            "clouds": {
-                "all": 98
-            },
-            "wind": {
-                "speed": 3.41,
-                "deg": 181
-            },
-            "sys": {
-                "pod": "n"
-            },
-            "dt_txt": "2019-12-31 06:00:00"
+            "dt": 1577772000, "main": { "temp": 279.45, "feels_like": 275.71, "temp_min": 279.45, "temp_max": 279.49, "pressure": 1024, "sea_level": 1024, "grnd_level": 1016, "humidity": 84, "temp_kf": -0.04 }, "weather": [{ "id": 804, "main": "Clouds", "description": "overcast clouds", "icon": "04n" }], "clouds": { "all": 98 }, "wind": { "speed": 3.41, "deg": 181 }, "sys": { "pod": "n" }, "dt_txt": "2019-12-31 06:00:00"
         },
         {
-            "dt": 1577782800
-            , "main": {
-                "temp": 279.71,
-                "feels_like": 275.64,
-                "temp_min": 279.71,
-                "temp_max": 279.73,
-                "pressure": 1022,
-                "sea_level": 1022,
-                "grnd_level": 1014,
-                "humidity": 83,
-                "temp_kf": -0.02
-            },
-            "weather": [
-                {
-                    "id": 500,
-                    "main": "Rain",
-                    "description": "light rain",
-                    "icon": "10n"
-                }
-            ],
-            "clouds": {
-                "all": 100
-            },
-            "wind": {
-                "speed": 3.9,
-                "deg": 190
-            },
-            "rain": {
-                "3h": 0.19
-            },
-            "sys": {
-                "pod": "n"
-            },
-            "dt_txt": "2019-12-31 09:00:00"
+            "dt": 1577782800, "main": { "temp": 279.71, "feels_like": 275.64, "temp_min": 279.71, "temp_max": 279.73, "pressure": 1022, "sea_level": 1022, "grnd_level": 1014, "humidity": 83, "temp_kf": -0.02 }, "weather": [{ "id": 500, "main": "Rain", "description": "light rain", "icon": "10n" }], "clouds": { "all": 100 }, "wind": { "speed": 3.9, "deg": 190 }, "rain": { "3h": 0.19 }, "sys": { "pod": "n" }, "dt_txt": "2019-12-31 09:00:00"
         },
         {
             "dt": 1577793600, "main": { "temp": 279.74, "feels_like": 275.47, "temp_min": 279.74, "temp_max": 279.75, "pressure": 1021, "sea_level": 1021, "grnd_level": 1013, "humidity": 78, "temp_kf": -0.01 }, "weather": [{ "id": 804, "main": "Clouds", "description": "overcast clouds", "icon": "04n" }], "clouds": { "all": 100 }, "wind": { "speed": 3.96, "deg": 203 }, "sys": { "pod": "n" }, "dt_txt": "2019-12-31 12:00:00"

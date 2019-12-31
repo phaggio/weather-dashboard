@@ -6,6 +6,8 @@ const forecastWeather = 'http://api.openweathermap.org/data/2.5/forecast?q=';
 const key = '&APPID=786953f37f3a1158ba41f05aad533b5b';
 const city = 'Seattle';
 
+// HTML elements
+const cityHeading = $('#city-name');
 
 var currentWeatherObj = {
   "coord": { "lon": -122.33, "lat": 47.6 },
@@ -23,17 +25,31 @@ var currentWeatherObj = {
   "cod": 200
 }
 
-$.ajax({
-  url: forecastWeather + city + key,
-  method: 'GET',
-}).then(function (response) {
-  console.log(response);
-  currentWeatherObj = response;
-});
+
+cityHeading.text(currentWeatherObj.name);
+
+function makeApiCall() {
+  $.ajax({
+    url: forecastWeather + city + key,
+    method: 'GET',
+  }).then(function (response) {
+    console.log(response);
+    currentWeatherObj = response;
+  });
+}
+
 
 searchButton.on('click', function () {
   event.preventDefault();
   let searchCity = searchInput.val();
   console.log(searchCity);
   searchInput.val('');
+  makeApiCall();
 });
+
+// a function converts Kelvin temperature to Fahrenheit and returns a string
+function kelvinToFahrenheit(kelvin) {
+  var fahrenheit = (kelvin - 273.15) * 9 / 5 + 32;
+  fahrenheit = fahrenheit.toFixed(2);
+  return fahrenheit;
+}
