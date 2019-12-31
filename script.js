@@ -1,15 +1,16 @@
+// HTML elements
 const searchInput = $('#search-city');
 const searchButton = $('#search-button');
+const cityHeading = $('#city-name');
 
+// Weather API constant
 const currentWeather = 'http://api.openweathermap.org/data/2.5/weather?q='
 const forecastWeather = 'http://api.openweathermap.org/data/2.5/forecast?q=';
 const key = '&APPID=786953f37f3a1158ba41f05aad533b5b';
 const city = 'Seattle';
 
-// HTML elements
-const cityHeading = $('#city-name');
-
-var currentWeatherObj = {
+// current weather Obj.
+let currentWeatherObj = {
   "coord": { "lon": -122.33, "lat": 47.6 },
   "weather": [{ "id": 804, "main": "Clouds", "description": "overcast clouds", "icon": "04n" }],
   "base": "stations",
@@ -25,18 +26,29 @@ var currentWeatherObj = {
   "cod": 200
 }
 
+// parsed current weather variables
+let currentUTC = (currentWeatherObj.dt + currentWeatherObj.timezone) * 1000;
+console.log(currentWeatherObj.dt);
+console.log(currentWeatherObj.timezone)
+console.log(currentUTC);
+let utcDate = new Date(currentWeatherObj.dt * 1000);
+let currentDate = new Date(currentUTC);
+console.log(utcDate);
+console.log(currentDate);
+
+console.log(new Date(1577762007000));
 
 cityHeading.text(currentWeatherObj.name);
 
 function makeApiCall() {
   $.ajax({
-    url: forecastWeather + city + key,
+    url: currentWeather + city + key,
     method: 'GET',
   }).then(function (response) {
     console.log(response);
     currentWeatherObj = response;
   });
-}
+};
 
 
 searchButton.on('click', function () {
@@ -47,9 +59,13 @@ searchButton.on('click', function () {
   makeApiCall();
 });
 
+
+
+
+
 // a function converts Kelvin temperature to Fahrenheit and returns a string
 function kelvinToFahrenheit(kelvin) {
   var fahrenheit = (kelvin - 273.15) * 9 / 5 + 32;
   fahrenheit = fahrenheit.toFixed(2);
   return fahrenheit;
-}
+};
