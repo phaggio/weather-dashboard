@@ -157,7 +157,15 @@ let forecastObj = {
         }
     ],
     "city": {
-        "id": 5809844, "name": "Seattle", "coord": { "lat": 47.6038, "lon": -122.3301 },
-        "country": "US", "population": 608660, "timezone": -28800, "sunrise": 1577721445, "sunset": 1577751954
+        "id": 5809844,
+        "name": "Seattle",
+        "coord": {
+            "lat": 47.6038, "lon": -122.3301
+        },
+        "country": "US",
+        "population": 608660,
+        "timezone": -28800,
+        "sunrise": 1577721445,
+        "sunset": 1577751954
     }
 }
