@@ -11,12 +11,32 @@ const city = 'Seattle';
 
 // current weather Obj.
 let currentWeatherObj = {
-  "coord": { "lon": -122.33, "lat": 47.6 },
-  "weather": [{ "id": 804, "main": "Clouds", "description": "overcast clouds", "icon": "04n" }],
+  "coord": {
+    "lon": -122.33
+    , "lat": 47.6
+  },
+  "weather": [
+    {
+      "id": 804,
+      "main": "Clouds",
+      "description": "overcast clouds",
+      "icon": "04n"
+    }
+  ],
   "base": "stations",
-  "main": { "temp": 280.8, "feels_like": 276.9, "temp_min": 279.26, "temp_max": 282.15, "pressure": 1027, "humidity": 76 },
+  "main": {
+    "temp": 280.8, // current temperature in K
+    "feels_like": 276.9,
+    "temp_min": 279.26,
+    "temp_max": 282.15,
+    "pressure": 1027,
+    "humidity": 76
+  },
   "visibility": 16093,
-  "wind": { "speed": 3.6, "deg": 160 },
+  "wind": {
+    "speed": 3.6, // meters per second
+    "deg": 160 // degree, 160 is South-Southeast
+  },
   "clouds": { "all": 90 },
   "dt": 1577756730, // Tuesday, December 31, 2019 1:45:30 AM UTC or Monday, December 30, 2019 5:45:30 PM GMT-08:00
   "sys": { "type": 1, "id": 3417, "country": "US", "sunrise": 1577721444, "sunset": 1577751955 },
@@ -29,8 +49,19 @@ let currentWeatherObj = {
 // parsed current weather variables
 console.log(convertUTC(currentWeatherObj.dt, currentWeatherObj.timezone));
 
-cityHeading.text(currentWeatherObj.name);
+// update display
+// cityHeading.text(currentWeatherObj.name);
 
+searchButton.on('click', function () {
+  event.preventDefault();
+  let searchCity = searchInput.val();
+  console.log(searchCity);
+  searchInput.val('');
+  makeApiCall();
+});
+
+
+// a function that makes api call to openweathermap when user clicks on the search button
 function makeApiCall() {
   $.ajax({
     url: currentWeather + city + key,
@@ -42,15 +73,6 @@ function makeApiCall() {
     console.log(convertUTC(currentWeatherObj.dt, currentWeatherObj.timezone));
   });
 };
-
-
-searchButton.on('click', function () {
-  event.preventDefault();
-  let searchCity = searchInput.val();
-  console.log(searchCity);
-  searchInput.val('');
-  makeApiCall();
-});
 
 
 // a function that takes unix utc and timezone difference and returns to local time

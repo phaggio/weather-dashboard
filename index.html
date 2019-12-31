@@ -17,17 +17,15 @@
 
 
     <div class="container-lg border border-primary">
-        <div class="row">
-            <div class="col col-sm-4 col-md-4">
+        <div class="row d-flex justify-content-between">
+            <div class="col-sm-4 border border-secondary py-2 my-2">
                 <h4 class="">Search for a City: </h4>
-
                 <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" id="search-city" type="text" placeholder="Search city"
+                    <input class="form-control" id="search-city" type="text" placeholder="Search city"
                         aria-label="Search">
-                    <button class="btn btn-outline-secondary my-2 my-sm-0" id="search-button"
+                    <button class="btn btn-outline-secondary my-2" id="search-button"
                         type="search">Search</button>
                 </form>
-
                 <div class="my-4 border border-secondary">
                     <ul class="list-group" id="recent-cities">
                         <a class="text-decoration-none" href="">
@@ -44,12 +42,18 @@
                         </a>
                     </ul>
                 </div>
-
             </div>
 
-            <div class="col-12 col-sm-8 col-md-8 border border-solid">
+            <div class="col-sm-8 border border-success py-2 my-2">
+                <div>CURRENT CITY</div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 border border-danger">
                 <div class="" id="current-city">
-                    <h5 id="city-name">City Name</h5>
+                    <h4 id="city-name">Current weather in City Name, Country</h4>
                     <p>Status</p>
                 </div>
                 <div class="">
@@ -58,6 +62,8 @@
             </div>
 
         </div>
+
+
 
     </div>
 
