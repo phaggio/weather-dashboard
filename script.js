@@ -1,35 +1,39 @@
 const searchInput = $('#search-city');
 const searchButton = $('#search-button');
 
-const URL = 'http://api.openweathermap.org/data/2.5/forecast?id=524901&APPID=';
-const key = '786953f37f3a1158ba41f05aad533b5b';
-const queryURL = 'api.openweathermap.org/data/2.5/weather?q=';
+const currentWeather = 'http://api.openweathermap.org/data/2.5/weather?q='
+const forecastWeather = 'http://api.openweathermap.org/data/2.5/forecast?q=';
+const key = '&APPID=786953f37f3a1158ba41f05aad533b5b';
 const city = 'Seattle';
-var title = 'space+jam';
-var query = 'https://www.omdbapi.com/?t=' + title + '&y=&plot=short&apikey=trilogy';
 
 
-// $.ajax({
-//     url: query,
-//     method: 'GET'
-//   }).then(function(response) {
-//     console.log(response);
-//     console.log(response.Runtime);
-//   });
+var currentWeatherObj = {
+  "coord": { "lon": -122.33, "lat": 47.6 },
+  "weather": [{ "id": 804, "main": "Clouds", "description": "overcast clouds", "icon": "04n" }],
+  "base": "stations",
+  "main": { "temp": 280.8, "feels_like": 276.9, "temp_min": 279.26, "temp_max": 282.15, "pressure": 1027, "humidity": 76 },
+  "visibility": 16093,
+  "wind": { "speed": 3.6, "deg": 160 },
+  "clouds": { "all": 90 },
+  "dt": 1577756730,
+  "sys": { "type": 1, "id": 3417, "country": "US", "sunrise": 1577721444, "sunset": 1577751955 },
+  "timezone": -28800,
+  "id": 5809844,
+  "name": "Seattle",
+  "cod": 200
+}
 
 $.ajax({
-    url: URL + key,
-    method: 'GET',
-    // dataType: 'json'
-  }).then(function(response) {
-    console.log(response);
-  });
-
-
+  url: forecastWeather + city + key,
+  method: 'GET',
+}).then(function (response) {
+  console.log(response);
+  currentWeatherObj = response;
+});
 
 searchButton.on('click', function () {
-    event.preventDefault();
-    let searchCity = searchInput.val();
-    console.log(searchCity);
-    searchInput.val('');
+  event.preventDefault();
+  let searchCity = searchInput.val();
+  console.log(searchCity);
+  searchInput.val('');
 });
