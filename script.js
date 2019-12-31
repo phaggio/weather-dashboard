@@ -18,7 +18,7 @@ let currentWeatherObj = {
   "visibility": 16093,
   "wind": { "speed": 3.6, "deg": 160 },
   "clouds": { "all": 90 },
-  "dt": 1577756730,
+  "dt": 1577756730, // Tuesday, December 31, 2019 1:45:30 AM UTC or Monday, December 30, 2019 5:45:30 PM GMT-08:00
   "sys": { "type": 1, "id": 3417, "country": "US", "sunrise": 1577721444, "sunset": 1577751955 },
   "timezone": -28800,
   "id": 5809844,
@@ -27,16 +27,7 @@ let currentWeatherObj = {
 }
 
 // parsed current weather variables
-let currentUTC = (currentWeatherObj.dt + currentWeatherObj.timezone) * 1000;
-console.log(currentWeatherObj.dt);
-console.log(currentWeatherObj.timezone)
-console.log(currentUTC);
-let utcDate = new Date(currentWeatherObj.dt * 1000);
-let currentDate = new Date(currentUTC);
-console.log(utcDate);
-console.log(currentDate);
-
-console.log(new Date(1577762007000));
+console.log(convertUTC(currentWeatherObj.dt, currentWeatherObj.timezone));
 
 cityHeading.text(currentWeatherObj.name);
 
@@ -47,6 +38,8 @@ function makeApiCall() {
   }).then(function (response) {
     console.log(response);
     currentWeatherObj = response;
+    // console log out local time from the api call
+    console.log(convertUTC(currentWeatherObj.dt, currentWeatherObj.timezone));
   });
 };
 
@@ -60,7 +53,12 @@ searchButton.on('click', function () {
 });
 
 
-
+// a function that takes unix utc and timezone difference and returns to local time
+function convertUTC(utc, timezone) {
+  let currentEpochTime = (utc + timezone);
+  currentEpochTime = moment.unix(currentEpochTime).utc(false);
+  return (currentEpochTime.format('MM-DD-YYYY h:mm a'));
+};
 
 
 // a function converts Kelvin temperature to Fahrenheit and returns a string
