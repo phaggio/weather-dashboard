@@ -11,44 +11,51 @@
 </head>
 
 <body>
+    <!-- top nav bar -->
     <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand mx-auto h1" href="#">Weather Dashboard</a>
+        <a class="navbar-brand mx-auto" href="#">
+            <div class="h3 px-2">Weather Dashboard</div>
+        </a>
     </nav>
 
-
+    <!-- search city bar and current weather display -->
     <div class="container-lg border border-primary">
-        <div class="row d-flex justify-content-between">
-            <div class="col-sm-4 border border-secondary py-2 my-2">
-                <h4 class="">Search for a City: </h4>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control" id="search-city" type="text" placeholder="Search city"
-                        aria-label="Search">
-                    <button class="btn btn-outline-secondary my-2" id="search-button"
-                        type="search">Search</button>
-                </form>
-                <div class="my-4 border border-secondary">
-                    <ul class="list-group" id="recent-cities">
-                        <a class="text-decoration-none" href="">
-                            <li class="list-group-item">City 1</li>
-                        </a>
-                        <a class="text-decoration-none" href="">
-                            <li class="list-group-item">City 2</li>
-                        </a>
-                        <a class="text-decoration-none" href="">
-                            <li class="list-group-item">City 3</li>
-                        </a>
-                        <a class="text-decoration-none" href="">
-                            <li class="list-group-item"></li>
-                        </a>
-                    </ul>
-                </div>
-            </div>
+        <!-- <div class="row d-flex justify-content-between"> -->
+        <div class="col-sm-5 my-2 py-2 border border-secondary rounded">
 
-            <div class="col-sm-8 border border-success py-2 my-2">
-                <div>CURRENT CITY</div>
-            </div>
+
+            <!-- search city form -->
+            <form class="form-inline border border-dark my-2 my-md-2 my-lg-0">
+                <span class="h5 mr-auto my-auto border border-danger">Search for a city: </span>
+                <input class="form-control" id="search-city" type="text" placeholder="city name" aria-label="Search">
+                <button class="btn btn-primary my-1 my-sm-1" id="search-button" type="search">Search</button>
+            </form>
+
+            <!-- recent city list -->
+            <ul class="list-group border border-secondary rounded" id="recent-cities">
+                <a class="text-decoration-none" href="">
+                    <li class="list-group-item">City Number 1</li>
+                </a>
+                <a class="text-decoration-none" href="">
+                    <li class="list-group-item">City Number 2</li>
+                </a>
+                <a class="text-decoration-none" href="">
+                    <li class="list-group-item">City Number 3</li>
+                </a>
+                <a class="text-decoration-none" href="">
+                    <li class="list-group-item">City Number 4</li>
+                </a>
+            </ul>
 
         </div>
+
+        <div class="col-sm-8 border border-success">
+            <div>CURRENT CITY</div>
+        </div>
+
+        <!-- </div> -->
+
+
 
         <div class="row">
             <div class="col-12 col-sm-12 col-md-12 border border-danger">
@@ -62,8 +69,6 @@
             </div>
 
         </div>
-
-
 
     </div>
 
