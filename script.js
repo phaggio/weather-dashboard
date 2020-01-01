@@ -44,7 +44,7 @@ function updateCurrentTempDiv() {
   temperatureDiv.empty();
   let currentTemp = kelvinToFahrenheit(currentWeatherObj.main.temp);
   let feelsLikeTemp = kelvinToFahrenheit(currentWeatherObj.main.feels_like);
-  let highTemp = kelvinToFahrenheit(currentWeatherObj.main.temp_min);
+  let highTemp = kelvinToFahrenheit(currentWeatherObj.main.temp_max);
   let lowTemp = kelvinToFahrenheit(currentWeatherObj.main.temp_min);
   let html = "<p> Now: " + currentTemp + "<br>"
     + "Feels like: " + feelsLikeTemp + "<br>"
