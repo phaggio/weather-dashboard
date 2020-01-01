@@ -41,12 +41,6 @@ function updateCurrentCity() {
 }
 
 // parsed Obj values
-let city = currentWeatherObj.name;
-let country = currentWeatherObj.sys.country;
-let currentDate = convertUTC(currentWeatherObj.dt, currentWeatherObj.timezone);
-let currentDescription = currentWeatherObj.weather.description;
-let currentImgIcon = currentWeatherObj.weather.icon;
-
 let currentTemp = kelvinToFahrenheit(currentWeatherObj.main.temp);
 let feelsLikeTemp = kelvinToFahrenheit(currentWeatherObj.main.feels_like);
 let highTemp = kelvinToFahrenheit(currentWeatherObj.main.temp_min);
@@ -58,7 +52,6 @@ let humidity = currentWeatherObj.main.humidity + '%';
 let windSpeed = mpsToMph(currentWeatherObj.wind.speed);
 let uvIndex = currentUVObj.value;
 
-console.log(city, currentDate.format('MM-DD h:mm a'), currentTemp);
 console.log(sunrise, sunset, humidity);
 console.log(windSpeed);
 
@@ -66,7 +59,6 @@ console.log(windSpeed);
 searchButton.on('click', function () {
   event.preventDefault();
   let searchCity = searchInput.val();
-  console.log(searchCity);
   makeApiCallByCity(searchCity);
   searchInput.val('');
 });
