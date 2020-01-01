@@ -77,7 +77,7 @@ function makeApiCall() {
     currentWeatherObj = response;
     // console log out local time from the api call
     console.log(convertUTC(currentWeatherObj.dt, currentWeatherObj.timezone));
-    updateCurrentWeather();
+    // updateCurrentWeather();
   });
 };
 
