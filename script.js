@@ -25,7 +25,7 @@ let currentUVObj = {
 
 
 
-function updateCurrentCity() {
+function updateCurrentCityDiv() {
   currentCityDiv.empty();
   let city = currentWeatherObj.name;
   let country = currentWeatherObj.sys.country;
@@ -38,22 +38,36 @@ function updateCurrentCity() {
     + "<hr>";
   currentCityDiv.append(html);
   weatherIconImg.attr('src', "http://openweathermap.org/img/wn/" + currentImgIcon + "@2x.png");
-}
+};
 
-// parsed Obj values
-let currentTemp = kelvinToFahrenheit(currentWeatherObj.main.temp);
-let feelsLikeTemp = kelvinToFahrenheit(currentWeatherObj.main.feels_like);
-let highTemp = kelvinToFahrenheit(currentWeatherObj.main.temp_min);
-let lowTemp = kelvinToFahrenheit(currentWeatherObj.main.temp_min);
+function updateCurrentTempDiv() {
+  temperatureDiv.empty();
+  let currentTemp = kelvinToFahrenheit(currentWeatherObj.main.temp);
+  let feelsLikeTemp = kelvinToFahrenheit(currentWeatherObj.main.feels_like);
+  let highTemp = kelvinToFahrenheit(currentWeatherObj.main.temp_min);
+  let lowTemp = kelvinToFahrenheit(currentWeatherObj.main.temp_min);
+  let html = "<p> Now: " + currentTemp + "<br>"
+    + "Feels like: " + feelsLikeTemp + "<br>"
+    + "High: " + highTemp + "<br>"
+    + "Low: " + lowTemp + "<br></p>";
+  temperatureDiv.append(html);
+};
 
-let sunrise = convertUTC(currentWeatherObj.sys.sunrise, currentWeatherObj.timezone).format('h:mm a');
-let sunset = convertUTC(currentWeatherObj.sys.sunset, currentWeatherObj.timezone).format("h:mm a");
-let humidity = currentWeatherObj.main.humidity + '%';
-let windSpeed = mpsToMph(currentWeatherObj.wind.speed);
-let uvIndex = currentUVObj.value;
 
-console.log(sunrise, sunset, humidity);
-console.log(windSpeed);
+function updateDetailDiv() {
+  detailDiv.empty();
+  let sunrise = convertUTC(currentWeatherObj.sys.sunrise, currentWeatherObj.timezone).format('h:mm a');
+  let sunset = convertUTC(currentWeatherObj.sys.sunset, currentWeatherObj.timezone).format("h:mm a");
+  let humidity = currentWeatherObj.main.humidity + '%';
+  let windSpeed = mpsToMph(currentWeatherObj.wind.speed);
+  // let uvIndex = currentUVObj.value;
+  let html = "<p> Sunrise: " + sunrise + "<br>"
+    + "Sunset: " + sunset + "<br>"
+    + "Humidity: " + humidity + "<br>"
+    + "Wind Speed: " + windSpeed + " mph<br></p>";
+  detailDiv.append(html);
+};
+
 
 
 searchButton.on('click', function () {
@@ -72,7 +86,9 @@ function makeApiCallByCity(city) {
   }).then(function (response) {
     console.log(response);
     currentWeatherObj = response;
-    updateCurrentCity();
+    updateCurrentCityDiv();
+    updateCurrentTempDiv();
+    updateDetailDiv();
   });
 };
 
