@@ -25,56 +25,66 @@
     <div class="container-lg">
 
         <!-- row contains search form, recent cities, current weather display -->
-        <div class="row">
+        <div class="row border border-primary">
 
             <!-- search city form column -->
-            <div class="col-10 col-sm-5 col-md-5 col-lg-4">
+            <div class="col-12 col-sm-4 col-md-3 col-lg-3 col-xl-2 border border-secondary">
 
                 <!-- search city input and button div -->
-                <div class="my-2 px-2 py-1 border border-secondary rounded">
-                    <span class="h5 ml-1 mt-auto">Search for a city: </span>
-                    <form class="form-inline mx-1 my-1 my-md-2 my-lg-0">
+                <div class="row p-2 border border-success rounded">
+                    <span class="h5">Search for a city: </span>
+                    <div class="input-group">
                         <input class="form-control" id="search-city" type="text" placeholder="city name"
                             aria-label="Search">
-                        <button class="btn btn-primary btn-sm" id="search-button" type="search">
-                            <i class="material-icons">search</i>
-                        </button>
-                    </form>
+                        <div class="input-group-append">
+                            <button class="btn btn-primary btn-sm" id="search-button" type="search">
+                                <i class="material-icons">search</i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- recent city list -->
-                <ul class="list-group border border-secondary rounded" id="recent-cities">
-                    <a class="text-decoration-none" href="">
-                        <li class="list-group-item">City Number 1</li>
-                    </a>
-                    <a class="text-decoration-none" href="">
-                        <li class="list-group-item">City Number 2</li>
-                    </a>
-                    <a class="text-decoration-none" href="">
-                        <li class="list-group-item">City Number 3</li>
-                    </a>
-                    <a class="text-decoration-none" href="">
-                        <li class="list-group-item">City Number 4</li>
-                    </a>
-                </ul>
+                <div class="row p-2 border border-success rounded">
+                    <ul class="list-group w-100" id="recent-cities">
+                        <a class="text-decoration-none" href="">
+                            <li class="list-group-item">City Number 1</li>
+                        </a>
+                        <a class="text-decoration-none" href="">
+                            <li class="list-group-item">City Number 2</li>
+                        </a>
+                        <a class="text-decoration-none" href="">
+                            <li class="list-group-item">City Number 3</li>
+                        </a>
+                        <a class="text-decoration-none" href="">
+                            <li class="list-group-item">City Number 4</li>
+                        </a>
+                    </ul>
+                </div>
+
             </div>
 
             <!-- weather column -->
-            <div class="col-12 col-sm-7 col-md-7 col-lg-8">
+            <div class="col-12 col-sm-8 col-md-9 col-lg-9 col-xl-10 border border-secondary">
 
                 <!-- current city weather  -->
-                <div class="my-2 px-2 py-1 border border-secondary rounded w-100" id="current-city">
-                    <h3>Seattle, WA USA</h3>
-                    <p>Temperature: 45</p>
-                    <p>Humidity: 60%</p>
-                    <p>Wind Speed: 3 mph</p>
-                    <p>UV Index: 0</p>
+                <div class="px-2 py-1 border border-secondary rounded w-100" id="current-city">
+                    <div class="h2">Seattle, WA USA</div>
+                    <hr>
+                    <div class="">
+                        test
+                        test
+                        <p>Temperature: 45</p>
+                        <p>Humidity: 60%</p>
+                        <p>Wind Speed: 3 mph</p>
+                        <p>UV Index: 0</p>
+                    </div>
+
                 </div>
 
                 <div class="my-2 px-2 p-1 border border-secondary rounded w-100">
                     DETAIL CURRENT WEATHER STATUS
                 </div>
-
 
                 <!-- row 5 days forecast -->
                 <div class="row">
