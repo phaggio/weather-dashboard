@@ -23,15 +23,17 @@
 
     <!-- search city bar and current weather display -->
     <div class="container-lg">
-
         <!-- row contains search form, recent cities, current weather display -->
-        <div class="row border border-primary">
+        <div class="row">
+
+
 
             <!-- search city form column -->
-            <div class="col-12 col-sm-4 col-md-3 col-lg-3 col-xl-2 border border-secondary">
+            <div class="col-12 col-sm-4 col-md-3 col-lg-3 col-xl-3">
+
 
                 <!-- search city input and button div -->
-                <div class="row p-2 border border-success rounded">
+                <div class="row p-2 m-1 border border-secondary rounded">
                     <span class="h5">Search for a city: </span>
                     <div class="input-group">
                         <input class="form-control" id="search-city" type="text" placeholder="city name"
@@ -45,62 +47,94 @@
                 </div>
 
                 <!-- recent city list -->
-                <div class="row p-2 border border-success rounded">
+                <div class="row p-2 m-1 border border-secondary rounded">
                     <ul class="list-group w-100" id="recent-cities">
                         <a class="text-decoration-none" href="">
-                            <li class="list-group-item">City Number 1</li>
+                            <li class="list-group-item">City Name 1</li>
                         </a>
                         <a class="text-decoration-none" href="">
-                            <li class="list-group-item">City Number 2</li>
+                            <li class="list-group-item">City Name 2</li>
                         </a>
                         <a class="text-decoration-none" href="">
-                            <li class="list-group-item">City Number 3</li>
+                            <li class="list-group-item">City Name 3</li>
                         </a>
                         <a class="text-decoration-none" href="">
-                            <li class="list-group-item">City Number 4</li>
+                            <li class="list-group-item">City Name 4</li>
+                        </a>
+                        <a class="text-decoration-none" href="">
+                            <li class="list-group-item">City Name</li>
+                        </a>
+                        <a class="text-decoration-none" href="">
+                            <li class="list-group-item">City Name</li>
+                        </a>
+                        <a class="text-decoration-none" href="">
+                            <li class="list-group-item">City Name</li>
+                        </a>
+                        <a class="text-decoration-none" href="">
+                            <li class="list-group-item">City Name</li>
+                        </a>
+                        <a class="text-decoration-none" href="">
+                            <li class="list-group-item">City Name</li>
                         </a>
                     </ul>
                 </div>
 
             </div>
+            <!-- end of search column -->
+
 
             <!-- weather column -->
-            <div class="col-12 col-sm-8 col-md-9 col-lg-9 col-xl-10 border border-secondary">
+            <div class="col-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
 
-                <!-- current city weather  -->
-                <div class="px-2 py-1 border border-secondary rounded w-100" id="current-city">
-                    <div class="h2">Seattle, WA USA</div>
-                    <hr>
-                    <div class="">
-                        test
-                        test
-                        <p>Temperature: 45</p>
-                        <p>Humidity: 60%</p>
-                        <p>Wind Speed: 3 mph</p>
-                        <p>UV Index: 0</p>
-                    </div>
-
-                </div>
-
-                <div class="my-2 px-2 p-1 border border-secondary rounded w-100">
-                    DETAIL CURRENT WEATHER STATUS
-                </div>
-
-                <!-- row 5 days forecast -->
+                <!-- current city, icon row -->
                 <div class="row">
-                    <div class="m-2 p-1 border boreder-secondary rounded w-100" id="forcast">
-                        <h3>Five Days Forecast</h3>
-                        <h4 id="city-name">Current weather in City Name, Country</h4>
-                        <p>Forecast Forecast</p>
+                    <div class="col-9" id="current-city">
+                        <h2>Seattle, WA USA</h2>
+                        <h4>Dec 31st 2019</h4>
+                        <p>Overcast clouds </p>
+                        <hr>
                     </div>
+                    <div class="col-3">
+                        <img class="w-100" id="weather-icon" src="http://openweathermap.org/img/wn/10d@2x.png"
+                            alt="weather icon">
+                    </div>
+                </div>
+                <!-- current weather row -->
+                <div class="row">
+                    <div class="col-12 col-sm-6" id="current-temperature">
+                        <p>
+                            Now: 45 <br>
+                            Feels like: 44 <br>
+                            High: 50<br>
+                            Low: 43 <br>
+                        </p>
+                    </div>
+                    <div class="col-12 col-sm-6" id="current-detail">
+                        <p>
+                            Sunrise: 7:57 am <br>
+                            Sunset: 4:28 pm <br>
+                            Humidity: 60% <br>
+                            Wind Speed: 3 mph <br>
+                            UV Index: 0 <br>
+                        </p>
+                    </div>
+                </div>
+                <!-- end of current weather row -->
+
+
+                <!-- row 5 days forecast row -->
+                <div class="row p-2 m-1 border border-success rounded" id="forcast">
+                    <h4>Five Days Forecast</h4>
+                    <br>
+                    <p id="city-name">Current weather in City Name, Country</p>
+                    <p>Forecast Forecast</p>
                 </div>
 
             </div>
+            <!-- end of weather column -->
+
 
         </div>
-
-
-
     </div>
 
 
@@ -110,12 +144,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
 
     <!-- JQuery -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- From Bootstrap -->
-    <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
