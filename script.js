@@ -23,7 +23,7 @@ let currentUVObj = {
   "value": 0.58
 };
 
-
+makeApiCallByCity('Nanchang');
 
 function updateCurrentCityDiv() {
   currentCityDiv.empty();
