@@ -70,10 +70,16 @@ let feelsLikeTemp = kelvinToFahrenheit(currentWeatherObj.main.feels_like);
 let highTemp = kelvinToFahrenheit(currentWeatherObj.main.temp_min);
 let lowTemp = kelvinToFahrenheit(currentWeatherObj.main.temp_min);
 
-let sunrise = convertUTC(currentWeatherObj.sys.sunrise, currentWeatherObj.timezone);
-
+let sunrise = convertUTC(currentWeatherObj.sys.sunrise, currentWeatherObj.timezone).format('h:mm a');
+let sunset = convertUTC(currentWeatherObj.sys.sunset, currentWeatherObj.timezone).format("h:mm a");
+let humidity = currentWeatherObj.main.humidity + '%';
+let windSpeed = mpsToMph(currentWeatherObj.wind.speed);
+let uvIndex;
 // }
-console.log(sunrise);
+console.log(sunrise, sunset, humidity);
+console.log(windSpeed);
+
+
 
 searchButton.on('click', function () {
   event.preventDefault();
@@ -113,4 +119,11 @@ function kelvinToFahrenheit(kelvin) {
   var fahrenheit = (kelvin - 273.15) * 9 / 5 + 32;
   fahrenheit = fahrenheit.toFixed(2);
   return fahrenheit;
+};
+
+// a function that converts meter per second to mile per hour
+function mpsToMph(mps) {
+  let mph = mps * 60 * 60 / 1609.34;
+  mph = mph.toFixed(2);
+  return mph;
 };
