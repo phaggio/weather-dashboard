@@ -40,26 +40,40 @@ let currentWeatherObj = {
     "speed": 3.6, // meters per second
     "deg": 160 // degree, 160 is South-Southeast
   },
-  "clouds": { "all": 90 },
+  "clouds": {
+    "all": 90
+  },
   "dt": 1577756730, // Tuesday, December 31, 2019 1:45:30 AM UTC or Monday, December 30, 2019 5:45:30 PM GMT-08:00
-  "sys": { "type": 1, "id": 3417, "country": "US", "sunrise": 1577721444, "sunset": 1577751955 },
+  "sys": {
+    "type": 1,
+    "id": 3417,
+    "country": "US",
+    "sunrise": 1577721444,
+    "sunset": 1577751955
+  },
   "timezone": -28800,
   "id": 5809844,
   "name": "Seattle",
   "cod": 200
 }
 
-// parsed current weather variables
-console.log(convertUTC(currentWeatherObj.dt, currentWeatherObj.timezone));
-
 // update current weather div
 // function updateCurrentWeather() {
-  let city = currentWeatherObj.name;
-  let country = currentWeatherObj.sys.country;
-  let currentDate = convertUTC(currentWeatherObj.dt, currentWeatherObj.timezone);
-// }
-// cityHeading.text(currentWeatherObj.name);
+let city = currentWeatherObj.name;
+let country = currentWeatherObj.sys.country;
+let currentDate = convertUTC(currentWeatherObj.dt, currentWeatherObj.timezone);
+let currentDescription = currentWeatherObj.weather.description;
+let currentImgIcon = currentWeatherObj.weather.icon;
 
+let currentTemp = kelvinToFahrenheit(currentWeatherObj.main.temp);
+let feelsLikeTemp = kelvinToFahrenheit(currentWeatherObj.main.feels_like);
+let highTemp = kelvinToFahrenheit(currentWeatherObj.main.temp_min);
+let lowTemp = kelvinToFahrenheit(currentWeatherObj.main.temp_min);
+
+let sunrise = convertUTC(currentWeatherObj.sys.sunrise, currentWeatherObj.timezone);
+
+// }
+console.log(sunrise);
 
 searchButton.on('click', function () {
   event.preventDefault();
@@ -85,13 +99,14 @@ function makeApiCall() {
 };
 
 
+
+
 // a function that takes unix utc and timezone difference and returns to local time
 function convertUTC(utc, timezone) {
-  let currentEpochTime = (utc + timezone);
-  currentEpochTime = moment.unix(currentEpochTime).utc(false);
-  return (currentEpochTime.format('MM-DD-YYYY h:mm a'));
+  let localTime = (utc + timezone);
+  localTime = moment.unix(localTime).utc(false);
+  return (localTime);
 };
-
 
 // a function converts Kelvin temperature to Fahrenheit and returns a string
 function kelvinToFahrenheit(kelvin) {
