@@ -37,7 +37,7 @@ function updateCurrentCityDiv() {
     + "<p>" + currentDescription + "</p>"
     + "<hr>";
   currentCityDiv.append(html);
-  weatherIconImg.attr('src', "http://openweathermap.org/img/wn/" + currentImgIcon + "@2x.png");
+  weatherIconImg.attr('src', "./assets/02n" + currentImgIcon + "@2x.png");
 };
 
 function updateCurrentTempDiv() {
