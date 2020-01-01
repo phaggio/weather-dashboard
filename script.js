@@ -33,7 +33,7 @@ function updateCurrentCityDiv() {
   let currentDescription = currentWeatherObj.weather[0].description;
   let currentImgIcon = currentWeatherObj.weather[0].icon;
   let html = "<h2>" + city + ", " + country + "</h2>"
-    + "<h4>" + currentDate.format("MMM Do YYYY h:mm a") + "</h4>"
+    + "<h4>" + currentDate.format("MMM Do, YYYY h:mm a") + "</h4>"
     + "<p>" + currentDescription + "</p>"
     + "<hr>";
   currentCityDiv.append(html);
