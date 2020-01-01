@@ -21,9 +21,7 @@
         </a>
     </nav>
 
-    <!-- search city bar and current weather display -->
     <div class="container-lg">
-        <!-- row contains search form, recent cities, current weather display -->
         <div class="row">
 
 
@@ -36,7 +34,7 @@
                 <div class="row p-2 m-1 border border-secondary rounded">
                     <span class="h5">Search for a city: </span>
                     <div class="input-group">
-                        <input class="form-control" id="search-city" type="text" placeholder="city name"
+                        <input class="form-control" id="search-input" type="text" placeholder="city name"
                             aria-label="Search">
                         <div class="input-group-append">
                             <button class="btn btn-primary btn-sm" id="search-button" type="search">
@@ -83,6 +81,7 @@
             <!-- end of search column -->
 
 
+
             <!-- weather column -->
             <div class="col-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
 
@@ -123,15 +122,19 @@
 
 
                 <!-- row 5 days forecast row -->
-                <div class="row p-2 m-1 border border-success rounded" id="forcast">
-                    <h4>Five Days Forecast</h4>
-                    <br>
-                    <p id="city-name">Current weather in City Name, Country</p>
-                    <p>Forecast Forecast</p>
+                <div class="row border border-success rounded" id="forcast">
+                    <div class="col-12">
+                        <h4>Five Days Forecast</h4>
+                        <div id="city-name">Current weather in City Name, Country</div>
+                    </div>
+
                 </div>
+
 
             </div>
             <!-- end of weather column -->
+
+
 
 
         </div>

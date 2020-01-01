@@ -1,7 +1,10 @@
 // HTML elements
-const searchInput = $('#search-city');
+const searchInput = $('#search-input');
 const searchButton = $('#search-button');
 const currentCityDiv = $('#current-city');
+const weatherIconImg = $('#weather-icon');
+const temperatureDiv = $('#current-temperature');
+const detailDiv = $('#current-detail');
 
 // Weather API constant
 const currentWeather = 'http://api.openweathermap.org/data/2.5/weather?q='
