@@ -6,8 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Weather Dashboard</title>
+    <!-- bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- google icon -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
@@ -19,7 +22,7 @@
     </nav>
 
     <!-- search city bar and current weather display -->
-    <div class="container-lg border border-primary">
+    <div class="container-lg">
 
         <!-- row contains search form, recent cities, current weather display -->
         <div class="row">
@@ -29,11 +32,13 @@
 
                 <!-- search city input and button div -->
                 <div class="my-2 py-2 border border-secondary rounded">
-                    <span class="h5 ml-1 mt-auto border border-danger">Search for a city: </span>
-                    <form class="form-inline border border-dark mx-1 my-2 my-md-2 my-lg-0">
+                    <span class="h5 ml-1 mt-auto">Search for a city: </span>
+                    <form class="form-inline mx-1 my-1 my-md-2 my-lg-0">
                         <input class="form-control" id="search-city" type="text" placeholder="city name"
                             aria-label="Search">
-                        <button class="btn btn-primary my-1 my-sm-1" id="search-button" type="search">Search</button>
+                        <button class="btn btn-primary btn-sm" id="search-button" type="search">
+                            <i class="material-icons">search</i>
+                        </button>
                     </form>
                 </div>
 
@@ -54,34 +59,39 @@
                 </ul>
             </div>
 
+            <!-- weather column -->
+            <div class="col-12 col-sm-7 col-md-7 col-lg-8">
 
-            <div class="col-12 col-sm-7 col-md-7 col-lg-8 border border-success">
+                <!-- current city weather  -->
                 <div class="row">
-                    <div class="mx-1 my-2 py-1 border border-secondary rounded w-100">
+                    <div class="m-2 p-1 border border-secondary rounded w-100" id="current-city">
                         CURRENT CITY DISPLAY
                     </div>
                 </div>
                 <div class="row">
-                    <div class="mx-1 my-1 py-1 border border-secondary rounded w-100">
+                    <div class="m-2 p-1 border border-secondary rounded w-100">
                         DETAIL CURRENT WEATHER STATUS
                     </div>
                 </div>
-            </div>
 
-        </div>
-
-        <!-- row contains 5 days forecast -->
-        <div class="row">
-            <div class="col-12 border border-secondary">
-                <div class="my-1 mx-1 border boreder-warning rounded" id="current-city">
-                    <h3>Five Days Forecast</h3>
-                    <h4 id="city-name">Current weather in City Name, Country</h4>
-                    <p>Forecast Forecast</p>
+                <!-- row 5 days forecast -->
+                <div class="row">
+                    <div class="m-2 p-1 border boreder-secondary rounded w-100" id="forcast">
+                        <h3>Five Days Forecast</h3>
+                        <h4 id="city-name">Current weather in City Name, Country</h4>
+                        <p>Forecast Forecast</p>
+                    </div>
                 </div>
+
             </div>
+
         </div>
+
+
 
     </div>
+
+
 
 
     <!-- moment javascript -->

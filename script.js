@@ -1,13 +1,13 @@
 // HTML elements
 const searchInput = $('#search-city');
 const searchButton = $('#search-button');
-const cityHeading = $('#city-name');
+const currentCityDiv = $('#current-city');
 
 // Weather API constant
 const currentWeather = 'http://api.openweathermap.org/data/2.5/weather?q='
 const forecastWeather = 'http://api.openweathermap.org/data/2.5/forecast?q=';
 const key = '&APPID=786953f37f3a1158ba41f05aad533b5b';
-const city = 'Seattle';
+const searchCity = 'Seattle';
 
 // current weather Obj.
 let currentWeatherObj = {
@@ -49,8 +49,14 @@ let currentWeatherObj = {
 // parsed current weather variables
 console.log(convertUTC(currentWeatherObj.dt, currentWeatherObj.timezone));
 
-// update display
+// update current weather div
+// function updateCurrentWeather() {
+  let city = currentWeatherObj.name;
+  let country = currentWeatherObj.sys.country;
+  let currentDate = convertUTC(currentWeatherObj.dt, currentWeatherObj.timezone);
+// }
 // cityHeading.text(currentWeatherObj.name);
+
 
 searchButton.on('click', function () {
   event.preventDefault();
@@ -64,13 +70,14 @@ searchButton.on('click', function () {
 // a function that makes api call to openweathermap when user clicks on the search button
 function makeApiCall() {
   $.ajax({
-    url: currentWeather + city + key,
+    url: currentWeather + searchCity + key,
     method: 'GET',
   }).then(function (response) {
     console.log(response);
     currentWeatherObj = response;
     // console log out local time from the api call
     console.log(convertUTC(currentWeatherObj.dt, currentWeatherObj.timezone));
+    updateCurrentWeather();
   });
 };
 
