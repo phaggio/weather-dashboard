@@ -65,9 +65,15 @@ function makeApiCallByCity(city) {
     url: currentWeatherURL + city + '&APPID=' + key,
     method: 'GET'
   }).then(function (response) {
-    console.log(response);
     currentWeatherObj = response;
     makeUVIndexApiCall(currentWeatherObj.coord.lat, currentWeatherObj.coord.lon);
+  });
+
+  $.ajax({
+    url: forecastWeatherURL + city + '&APPID=' + key,
+    method: 'GET'
+  }).then(function (response) {
+    forecastWeatherObj = response;
   });
 };
 
@@ -81,6 +87,7 @@ function makeUVIndexApiCall(lat, lon) {
     updateCurrentCityDiv();
     updateCurrentTempDiv();
     updateDetailDiv();
+    updateForecastDiv();
     searchButton.prop('disabled', false);
   });
 };
