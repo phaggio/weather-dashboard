@@ -131,6 +131,7 @@ function convertUTC(utc, timezone) {
 function kelvinToFahrenheit(kelvin) {
   var fahrenheit = (kelvin - 273.15) * 9 / 5 + 32;
   fahrenheit = fahrenheit.toFixed(2);
+  fahrenheit = fahrenheit + String.fromCharCode(176);
   return fahrenheit;
 };
 
