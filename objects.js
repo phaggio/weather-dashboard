@@ -1,4 +1,4 @@
-let forecastObj = {
+let forecastWeatherObj = {
     "cod": "200",
     "message": 0,
     "cnt": 40,
