@@ -9,21 +9,73 @@ const detailDiv = $('#current-detail');
 // Weather API constant
 const currentWeatherURL = 'http://api.openweathermap.org/data/2.5/weather?q=';
 const forecastWeatherURL = 'http://api.openweathermap.org/data/2.5/forecast?q=';
+const uvIndexURL = 'http://api.openweathermap.org/data/2.5/uvi?';
 const key = '786953f37f3a1158ba41f05aad533b5b';
 const searchCity = 'Seattle';
 
-// current weather Obj.
-let currentWeatherObj = { "coord": { "lon": -122.33, "lat": 47.6 }, "weather": [{ "id": 803, "main": "Clouds", "description": "broken clouds", "icon": "04n" }], "base": "stations", "main": { "temp": 283.9, "feels_like": 278.31, "temp_min": 282.04, "temp_max": 285.37, "pressure": 1004, "humidity": 81 }, "visibility": 16093, "wind": { "speed": 7.2, "deg": 220, "gust": 11.3 }, "clouds": { "all": 75 }, "dt": 1577867176, "sys": { "type": 1, "id": 3417, "country": "US", "sunrise": 1577894250, "sunset": 1577924861 }, "timezone": -28800, "id": 5809844, "name": "Seattle", "cod": 200 };
+// static listners
+searchButton.on('click', searchButtonPressed);
 
-let currentUVObj = {
-  "lat": 47.6,
-  "lon": -122.33,
-  "date_iso": "2020-01-01T12:00:00Z",
-  "date": 1577880000,
-  "value": 0.58
+// current weather Obj.
+let currentWeatherObj = {
+  "coord": {
+    "lon": -122.33,
+    "lat": 47.6
+  },
+  "weather": [
+    {
+      "id": 803, "main": "Clouds", "description": "broken clouds", "icon": "04n"
+    }
+  ],
+  "base": "stations",
+  "main": {
+    "temp": 283.9, "feels_like": 278.31, "temp_min": 282.04, "temp_max": 285.37, "pressure": 1004, "humidity": 81
+  }, "visibility": 16093, "wind": { "speed": 7.2, "deg": 220, "gust": 11.3 }, "clouds": { "all": 75 }, "dt": 1577867176, "sys": { "type": 1, "id": 3417, "country": "US", "sunrise": 1577894250, "sunset": 1577924861 }, "timezone": -28800, "id": 5809844, "name": "Seattle", "cod": 200
 };
 
+let currentUVObj = {
+  // "lat": 47.6,
+  // "lon": -122.33,
+  // "date_iso": "2020-01-01T12:00:00Z",
+  // "date": 1577880000,
+  // "value": 0.58
+};
+
+
 makeApiCallByCity('Hawaii');
+
+// put user input in makeApiCallByCity function
+function searchButtonPressed() {
+  event.preventDefault();
+  let searchCity = searchInput.val();
+  makeApiCallByCity(searchCity);
+  searchInput.val('');
+};
+
+// a function that makes weather api call by city name to openweathermap when user clicks on the search button
+function makeApiCallByCity(city) {
+  $.ajax({
+    url: currentWeatherURL + city + '&APPID=' + key,
+    method: 'GET'
+  }).then(function (response) {
+    console.log(response);
+    currentWeatherObj = response;
+    makeUVIndexApiCall(currentWeatherObj.coord.lat, currentWeatherObj.coord.lon);
+  });
+};
+
+// take lat and lon data from currentWeatherObj and make UV Index API call, then calls div updates
+function makeUVIndexApiCall(lat, lon) {
+  $.ajax({
+    url: uvIndexURL + '&APPID=' + key + '&lat=' + lat + '&lon=' + lon,
+    method: 'GET'
+  }).then(function (response) {
+    currentUVObj = response;
+    updateCurrentCityDiv();
+    updateCurrentTempDiv();
+    updateDetailDiv();
+  });
+};
 
 function updateCurrentCityDiv() {
   currentCityDiv.empty();
@@ -53,47 +105,20 @@ function updateCurrentTempDiv() {
   temperatureDiv.append(html);
 };
 
-
 function updateDetailDiv() {
   detailDiv.empty();
   let sunrise = convertUTC(currentWeatherObj.sys.sunrise, currentWeatherObj.timezone).format('h:mm a');
   let sunset = convertUTC(currentWeatherObj.sys.sunset, currentWeatherObj.timezone).format("h:mm a");
   let humidity = currentWeatherObj.main.humidity + '%';
   let windSpeed = mpsToMph(currentWeatherObj.wind.speed);
-  // let uvIndex = currentUVObj.value;
+  let uvIndex = currentUVObj.value;
   let html = "<p> Sunrise: " + sunrise + "<br>"
     + "Sunset: " + sunset + "<br>"
     + "Humidity: " + humidity + "<br>"
-    + "Wind Speed: " + windSpeed + " mph<br></p>";
+    + "Wind Speed: " + windSpeed + " mph<br>"
+    + "UV Index: " + uvIndex + "</p>";
   detailDiv.append(html);
 };
-
-
-
-searchButton.on('click', function () {
-  event.preventDefault();
-  let searchCity = searchInput.val();
-  makeApiCallByCity(searchCity);
-  searchInput.val('');
-});
-
-
-// a function that makes weather api call by city name to openweathermap when user clicks on the search button
-function makeApiCallByCity(city) {
-  $.ajax({
-    url: currentWeatherURL + city + '&APPID=' + key,
-    method: 'GET',
-  }).then(function (response) {
-    console.log(response);
-    currentWeatherObj = response;
-    updateCurrentCityDiv();
-    updateCurrentTempDiv();
-    updateDetailDiv();
-  });
-};
-
-
-
 
 // a function that takes unix utc and timezone difference and returns to local time
 function convertUTC(utc, timezone) {
@@ -115,3 +140,4 @@ function mpsToMph(mps) {
   mph = mph.toFixed(2);
   return mph;
 };
+
