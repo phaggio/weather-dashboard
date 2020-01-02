@@ -11,10 +11,14 @@ const currentWeatherURL = 'https://api.openweathermap.org/data/2.5/weather?q=';
 const forecastWeatherURL = 'https://api.openweathermap.org/data/2.5/forecast?q=';
 const uvIndexURL = 'https://api.openweathermap.org/data/2.5/uvi?';
 const key = '786953f37f3a1158ba41f05aad533b5b';
-const searchCity = 'Seattle';
 
 // static listners
 searchButton.on('click', searchButtonPressed);
+searchInput.keypress(function(event) {
+  if (event.which === 13) {
+    searchButtonPressed();
+  };
+});
 
 // current weather Obj.
 let currentWeatherObj = {
@@ -46,6 +50,7 @@ makeApiCallByCity('Hawaii');
 
 // put user input in makeApiCallByCity function
 function searchButtonPressed() {
+  searchButton.prop('disabled', true);
   event.preventDefault();
   let searchCity = searchInput.val();
   makeApiCallByCity(searchCity);
@@ -74,6 +79,7 @@ function makeUVIndexApiCall(lat, lon) {
     updateCurrentCityDiv();
     updateCurrentTempDiv();
     updateDetailDiv();
+    searchButton.prop('disabled', false);
   });
 };
 
