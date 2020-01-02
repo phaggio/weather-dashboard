@@ -5,6 +5,7 @@ const currentCityDiv = $('#current-city');
 const weatherIconImg = $('#weather-icon');
 const temperatureDiv = $('#current-temperature');
 const detailDiv = $('#current-detail');
+const forecastDiv = $('#forecast');
 
 // Weather API constant
 const currentWeatherURL = 'https://api.openweathermap.org/data/2.5/weather?q=';
@@ -14,13 +15,13 @@ const key = '786953f37f3a1158ba41f05aad533b5b';
 
 // static listners
 searchButton.on('click', searchButtonPressed);
-searchInput.keypress(function(event) {
+searchInput.keypress(function (event) {
   if (event.which === 13) {
     searchButtonPressed();
   };
 });
 
-// current weather Obj.
+// Global variables
 let currentWeatherObj = {
   "coord": {
     "lon": -122.33,
@@ -36,7 +37,6 @@ let currentWeatherObj = {
     "temp": 283.9, "feels_like": 278.31, "temp_min": 282.04, "temp_max": 285.37, "pressure": 1004, "humidity": 81
   }, "visibility": 16093, "wind": { "speed": 7.2, "deg": 220, "gust": 11.3 }, "clouds": { "all": 75 }, "dt": 1577867176, "sys": { "type": 1, "id": 3417, "country": "US", "sunrise": 1577894250, "sunset": 1577924861 }, "timezone": -28800, "id": 5809844, "name": "Seattle", "cod": 200
 };
-
 let currentUVObj = {
   // "lat": 47.6,
   // "lon": -122.33,
@@ -44,15 +44,17 @@ let currentUVObj = {
   // "date": 1577880000,
   // "value": 0.58
 };
+var searchCity = 'Seattle';
 
 
-makeApiCallByCity('Hawaii');
+makeApiCallByCity(searchCity);
+updateForecastDiv();
 
 // put user input in makeApiCallByCity function
 function searchButtonPressed() {
   searchButton.prop('disabled', true);
   event.preventDefault();
-  let searchCity = searchInput.val();
+  searchCity = searchInput.val();
   makeApiCallByCity(searchCity);
   searchInput.val('');
 };
@@ -126,6 +128,22 @@ function updateDetailDiv() {
   detailDiv.append(html);
 };
 
+function updateForecastDiv() {
+  forecastDiv.empty();
+  var index = 0;
+  for (var i = 0; i < 5; ++i) {
+    let html = '<div class="col-2 mp-auto">'
+      + '<h5>' + convertUTC(forecastWeatherObj.list[index].dt, forecastWeatherObj.city.timezone).format('MM/DD/YYYY') + '</h5>'
+      + '<h6>' + convertUTC(forecastWeatherObj.list[index].dt, forecastWeatherObj.city.timezone).format('hh:mm a') + '</h6>'
+      + '<img class="w-100" src="./assets/' + forecastWeatherObj.list[index].weather[0].icon + '@2x.png" alt="weather icon">'
+      + '<p>' + 'Temp: ' + kelvinToFahrenheit(forecastWeatherObj.list[index].main.temp) + '<br>'
+      + 'Humidity: ' + forecastWeatherObj.list[index].main.humidity + '</p>' + '</div>';
+    forecastDiv.append(html);
+    index += 8;
+  };
+};
+
+
 // a function that takes unix utc and timezone difference and returns to local time
 function convertUTC(utc, timezone) {
   let localTime = (utc + timezone);
@@ -137,7 +155,7 @@ function convertUTC(utc, timezone) {
 function kelvinToFahrenheit(kelvin) {
   var fahrenheit = (kelvin - 273.15) * 9 / 5 + 32;
   fahrenheit = fahrenheit.toFixed(2);
-  fahrenheit = fahrenheit + String.fromCharCode(176);
+  fahrenheit = fahrenheit + ' ' + String.fromCharCode(176) + 'F';
   return fahrenheit;
 };
 
