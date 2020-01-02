@@ -132,11 +132,12 @@ function updateForecastDiv() {
   forecastDiv.empty();
   var index = 0;
   for (var i = 0; i < 5; ++i) {
-    let html = '<div class="col-4 col-md-2 m-auto">'
+    let html = '<div class="col-4 col-md-2 my-2 mx-auto">'
       + '<h5>' + convertUTC(forecastWeatherObj.list[index].dt, forecastWeatherObj.city.timezone).format('MM/DD/YYYY') + '</h5>'
       + '<h6>' + convertUTC(forecastWeatherObj.list[index].dt, forecastWeatherObj.city.timezone).format('hh:mm a') + '</h6>'
+      + '<hr>'
       + '<img class="w-100" src="./assets/' + forecastWeatherObj.list[index].weather[0].icon + '@2x.png" alt="weather icon">'
-      + '<p>' + 'Temperature: <br>' + kelvinToFahrenheit(forecastWeatherObj.list[index].main.temp) + '<br>'
+      + '<p>' + 'Temperature: <br>' + kelvinToFahrenheit(forecastWeatherObj.list[index].main.temp) + '<br>' + '<hr>'
       + 'Humidity: ' + forecastWeatherObj.list[index].main.humidity + '%</p>' + '</div>';
     forecastDiv.append(html);
     index += 8;
