@@ -22,33 +22,10 @@ searchInput.keypress(function (event) {
 });
 
 // Global variables
-let currentWeatherObj = {
-  "coord": {
-    "lon": -122.33,
-    "lat": 47.6
-  },
-  "weather": [
-    {
-      "id": 803, "main": "Clouds", "description": "broken clouds", "icon": "04n"
-    }
-  ],
-  "base": "stations",
-  "main": {
-    "temp": 283.9, "feels_like": 278.31, "temp_min": 282.04, "temp_max": 285.37, "pressure": 1004, "humidity": 81
-  }, "visibility": 16093, "wind": { "speed": 7.2, "deg": 220, "gust": 11.3 }, "clouds": { "all": 75 }, "dt": 1577867176, "sys": { "type": 1, "id": 3417, "country": "US", "sunrise": 1577894250, "sunset": 1577924861 }, "timezone": -28800, "id": 5809844, "name": "Seattle", "cod": 200
-};
-let currentUVObj = {
-  // "lat": 47.6,
-  // "lon": -122.33,
-  // "date_iso": "2020-01-01T12:00:00Z",
-  // "date": 1577880000,
-  // "value": 0.58
-};
 var searchCity = 'Seattle';
 
-
+// initial call upon page load
 makeApiCallByCity(searchCity);
-updateForecastDiv();
 
 // put user input in makeApiCallByCity function
 function searchButtonPressed() {
@@ -149,7 +126,6 @@ function updateForecastDiv() {
     index += 8;
   };
 };
-
 
 // a function that takes unix utc and timezone difference and returns to local time
 function convertUTC(utc, timezone) {
