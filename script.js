@@ -7,9 +7,9 @@ const temperatureDiv = $('#current-temperature');
 const detailDiv = $('#current-detail');
 
 // Weather API constant
-const currentWeatherURL = 'http://api.openweathermap.org/data/2.5/weather?q=';
-const forecastWeatherURL = 'http://api.openweathermap.org/data/2.5/forecast?q=';
-const uvIndexURL = 'http://api.openweathermap.org/data/2.5/uvi?';
+const currentWeatherURL = 'https://api.openweathermap.org/data/2.5/weather?q=';
+const forecastWeatherURL = 'https://api.openweathermap.org/data/2.5/forecast?q=';
+const uvIndexURL = 'https://api.openweathermap.org/data/2.5/uvi?';
 const key = '786953f37f3a1158ba41f05aad533b5b';
 const searchCity = 'Seattle';
 
