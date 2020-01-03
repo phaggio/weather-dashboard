@@ -38,6 +38,15 @@ locateMeButton.on('click', locateMe);
 // initial call upon page load
 makeApiCallByCity(searchCity);
 searchButton.hide();
+updateRecentCitiesDiv();
+
+recentCitiesDiv.on('click', function () {
+  // event.preventDefault();
+  let city = $(event.target).data('name');
+  console.log(city);
+  makeApiCallByCity(city);
+});
+
 
 
 
@@ -130,8 +139,8 @@ function makeUVIndexApiCall(lat, lon) {
 
 // a function that updates recent-cities div
 function updateRecentCitiesDiv() {
+  recentCitiesDiv.empty();
   for (i in recentCities) {
-    recentCitiesDiv.empty();
     let city = $('<button>');
     city.attr('class', 'btn btn-light w-100');
     city.attr('data-name', recentCities[i]);
