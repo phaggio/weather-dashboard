@@ -41,7 +41,7 @@ $('#test-button').on('click', function() {
     let latitude = position.coords.latitude;
     let longitude = position.coords.longitude;
     console.log(latitude, longitude);
-    makeUVIndexApiCall(latitude, longitude);
+    // makeUVIndexApiCall(latitude, longitude);
   };
 
   function error() {
