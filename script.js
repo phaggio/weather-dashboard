@@ -2,6 +2,7 @@
 const searchInput = $('#search-input');
 const searchButton = $('#search-button');
 const locateMeButton = $('#locate-me-button');
+const recentCitiesDiv = $('#recent-cities');
 const currentCityDiv = $('#current-city');
 const weatherIconImg = $('#weather-icon');
 const temperatureDiv = $('#current-temperature');
@@ -17,6 +18,11 @@ const key = '786953f37f3a1158ba41f05aad533b5b';
 const imperial = '&units=imperial';
 const metric = '&units=metric';
 
+// Global variables
+let searchCity = 'Seattle';
+let recentCities = ['Seattle, US', 'New York, US', 'San Jose, US'];
+
+
 // constant event listeners
 searchButton.on('click', searchButtonPressed);
 searchInput.keypress(function (event) {
@@ -24,28 +30,27 @@ searchInput.keypress(function (event) {
     searchButtonPressed();
   };
 });
-locateMeButton.on('click', function () {
-  console.log('locate me button pressed');
-  locateMe();
-});
+searchInput.on('keyup', switchButton);
+locateMeButton.on('click', locateMe);
 
+
+
+// initial call upon page load
+makeApiCallByCity(searchCity);
 searchButton.hide();
-searchInput.on('keyup', function () {
+
+
+
+// function switches search or locate me button on display
+function switchButton() {
   if (searchInput.val()) {
     locateMeButton.hide();
     searchButton.show();
   } else {
     locateMeButton.show();
     searchButton.hide();
-  }
-})
-
-
-// Global variables
-var searchCity = 'Seattle';
-
-// initial call upon page load
-makeApiCallByCity(searchCity);
+  };
+};
 
 // test current location function
 function locateMe() {
@@ -70,7 +75,7 @@ function locateMe() {
 
 // put user input in makeApiCallByCity function
 function searchButtonPressed() {
-  searchButton.prop('disabled', true);
+  // searchButton.prop('disabled', true);
   event.preventDefault();
   searchCity = searchInput.val();
   makeApiCallByCity(searchCity);
@@ -121,6 +126,20 @@ function makeUVIndexApiCall(lat, lon) {
   });
 };
 
+
+
+// a function that updates recent-cities div
+function updateRecentCitiesDiv() {
+  for (i in recentCities) {
+    recentCitiesDiv.empty();
+    let city = $('<button>');
+    city.attr('class', 'btn btn-light w-100');
+    city.attr('data-name', recentCities[i]);
+    city.text(recentCities[i]);
+    recentCitiesDiv.append(city);
+  };
+};
+
 function updateCurrentCityDiv() {
   currentCityDiv.empty();
   let city = currentWeatherObj.name;
@@ -169,7 +188,7 @@ function updateForecastDiv() {
   var index = 0;
   for (var i = 0; i < 5; ++i) {
     let html = '<div class="col-4 col-md-2 py-2 mb-2 mx-auto border border-secondary rounded">'
-      + '<h5>' + convertUTC(forecastWeatherObj.list[index].dt, forecastWeatherObj.city.timezone).format('MMM Do') + '</h5>'
+      + '<h5 class="text-center">' + convertUTC(forecastWeatherObj.list[index].dt, forecastWeatherObj.city.timezone).format('MMM Do') + '</h5>'
       + '<hr>'
       + '<img class="w-100" src="./assets/' + forecastWeatherObj.list[index].weather[0].icon + '@2x.png" alt="weather icon">'
       + '<p>' + 'Temperature: <br>' + kelvinToFahrenheit(forecastWeatherObj.list[index].main.temp) + '<br>' + '<hr>'
@@ -178,6 +197,8 @@ function updateForecastDiv() {
     index += 8;
   };
 };
+
+
 
 // a function that takes unix utc and timezone difference and returns to local time
 function convertUTC(utc, timezone) {
