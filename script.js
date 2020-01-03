@@ -8,10 +8,12 @@ const detailDiv = $('#current-detail');
 const forecastDiv = $('#forecast');
 
 // Weather API constant
-const currentWeatherURL = 'https://api.openweathermap.org/data/2.5/weather?q=';
-const forecastWeatherURL = 'https://api.openweathermap.org/data/2.5/forecast?q=';
-const uvIndexURL = 'https://api.openweathermap.org/data/2.5/uvi?';
+const cityWeatherURL = 'https://api.openweathermap.org/data/2.5/weather?q=';
+const cityForecastURL = 'https://api.openweathermap.org/data/2.5/forecast?q=';
+const coordUVIndexURL = 'https://api.openweathermap.org/data/2.5/uvi?';
 const key = '786953f37f3a1158ba41f05aad533b5b';
+const imperial = '&units=imperial';
+const metric = '&units=metric';
 
 // static listners
 searchButton.on('click', searchButtonPressed);
@@ -27,6 +29,27 @@ var searchCity = 'Seattle';
 // initial call upon page load
 makeApiCallByCity(searchCity);
 
+// test current location function
+$('#test-button').on('click', function() {
+  if (!navigator.geolocation) {
+    console.log('Geolocation is not supported by your browser.');
+  } else {
+    navigator.geolocation.getCurrentPosition(success, error);
+  };
+
+  function success(position) {
+    let latitude = position.coords.latitude;
+    let longitude = position.coords.longitude;
+    console.log(latitude, longitude);
+    makeUVIndexApiCall(latitude, longitude);
+  };
+
+  function error() {
+    console.log('Unable to retrieve your location.');
+  };
+});
+
+
 // put user input in makeApiCallByCity function
 function searchButtonPressed() {
   searchButton.prop('disabled', true);
@@ -39,7 +62,7 @@ function searchButtonPressed() {
 // a function that makes weather api call by city name to openweathermap when user clicks on the search button
 function makeApiCallByCity(city) {
   $.ajax({
-    url: currentWeatherURL + city + '&APPID=' + key,
+    url: cityWeatherURL + city + '&APPID=' + key,
     method: 'GET'
   }).then(function (response) {
     currentWeatherObj = response;
@@ -47,7 +70,7 @@ function makeApiCallByCity(city) {
   });
 
   $.ajax({
-    url: forecastWeatherURL + city + '&APPID=' + key,
+    url: cityForecastURL + city + '&APPID=' + key,
     method: 'GET'
   }).then(function (response) {
     forecastWeatherObj = response;
@@ -57,7 +80,7 @@ function makeApiCallByCity(city) {
 // take lat and lon data from currentWeatherObj and make UV Index API call, then calls div updates
 function makeUVIndexApiCall(lat, lon) {
   $.ajax({
-    url: uvIndexURL + '&APPID=' + key + '&lat=' + lat + '&lon=' + lon,
+    url: coordUVIndexURL + '&APPID=' + key + '&lat=' + lat + '&lon=' + lon,
     method: 'GET'
   }).then(function (response) {
     currentUVObj = response;
@@ -148,4 +171,3 @@ function mpsToMph(mps) {
   mph = mph.toFixed(2);
   return mph;
 };
-
