@@ -10,6 +10,7 @@ const forecastDiv = $('#forecast');
 
 // Weather API constant
 const cityWeatherURL = 'https://api.openweathermap.org/data/2.5/weather?q=';
+const coordWeatherURL = 'https://api.openweathermap.org/data/2.5/weather?';
 const cityForecastURL = 'https://api.openweathermap.org/data/2.5/forecast?q=';
 const coordUVIndexURL = 'https://api.openweathermap.org/data/2.5/uvi?';
 const key = '786953f37f3a1158ba41f05aad533b5b';
@@ -23,6 +24,22 @@ searchInput.keypress(function (event) {
     searchButtonPressed();
   };
 });
+locateMeButton.on('click', function () {
+  console.log('locate me button pressed');
+  locateMe();
+});
+
+searchButton.hide();
+searchInput.on('keyup', function () {
+  if (searchInput.val()) {
+    locateMeButton.hide();
+    searchButton.show();
+  } else {
+    locateMeButton.show();
+    searchButton.hide();
+  }
+})
+
 
 // Global variables
 var searchCity = 'Seattle';
@@ -31,7 +48,7 @@ var searchCity = 'Seattle';
 makeApiCallByCity(searchCity);
 
 // test current location function
-$('#test-button').on('click', function() {
+function locateMe() {
   if (!navigator.geolocation) {
     console.log('Geolocation is not supported by your browser.');
   } else {
@@ -42,13 +59,13 @@ $('#test-button').on('click', function() {
     let latitude = position.coords.latitude;
     let longitude = position.coords.longitude;
     console.log(latitude, longitude);
-    // makeUVIndexApiCall(latitude, longitude);
+    makeApiCallByCoord(latitude, longitude);
   };
 
   function error() {
     console.log('Unable to retrieve your location.');
   };
-});
+};
 
 
 // put user input in makeApiCallByCity function
@@ -75,6 +92,17 @@ function makeApiCallByCity(city) {
     method: 'GET'
   }).then(function (response) {
     forecastWeatherObj = response;
+  });
+};
+
+function makeApiCallByCoord(lat, lon) {
+  $.ajax({
+    url: coordWeatherURL + 'lat=' + lat + '&lon=' + lon + '&APPID=' + key,
+    method: 'GET'
+  }).then(function (response) {
+    console.log(response);
+    currentWeatherObj = response;
+    makeUVIndexApiCall(currentWeatherObj.coord.lat, currentWeatherObj.coord.lon);
   });
 };
 
