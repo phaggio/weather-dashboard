@@ -116,7 +116,7 @@ function updateForecastDiv() {
   forecastDiv.empty();
   var index = 0;
   for (var i = 0; i < 5; ++i) {
-    let html = '<div class="col-4 col-md-2 py-2 mx-auto border border-secondary rounded">'
+    let html = '<div class="col-4 col-md-2 py-2 mb-2 mx-auto border border-secondary rounded">'
       + '<h5>' + convertUTC(forecastWeatherObj.list[index].dt, forecastWeatherObj.city.timezone).format('MMM Do') + '</h5>'
       + '<hr>'
       + '<img class="w-100" src="./assets/' + forecastWeatherObj.list[index].weather[0].icon + '@2x.png" alt="weather icon">'
