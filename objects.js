@@ -67,8 +67,7 @@ let forecastWeatherObj = {
             "dt": 1577869200, "main": { "temp": 284.01, "feels_like": 278.24, "temp_min": 284.01, "temp_max": 284.01, "pressure": 1003, "sea_level": 1003, "grnd_level": 996, "humidity": 79, "temp_kf": 0 }, "weather": [{ "id": 803, "main": "Clouds", "description": "broken clouds", "icon": "04n" }], "clouds": { "all": 68 }, "wind": { "speed": 7.36, "deg": 235 }, "sys": { "pod": "n" }, "dt_txt": "2020-01-01 09:00:00"
         },
         {
-            "dt": 1577880000,
-            "main": { "temp": 283.08, "feels_like": 278.09, "temp_min": 283.08, "temp_max": 283.08, "pressure": 1005, "sea_level": 1005, "grnd_level": 997, "humidity": 76, "temp_kf": 0 }, "weather": [{ "id": 803, "main": "Clouds", "description": "broken clouds", "icon": "04n" }], "clouds": { "all": 77 }, "wind": { "speed": 5.79, "deg": 237 }, "sys": { "pod": "n" }, "dt_txt": "2020-01-01 12:00:00"
+            "dt": 1577880000, "main": { "temp": 283.08, "feels_like": 278.09, "temp_min": 283.08, "temp_max": 283.08, "pressure": 1005, "sea_level": 1005, "grnd_level": 997, "humidity": 76, "temp_kf": 0 }, "weather": [{ "id": 803, "main": "Clouds", "description": "broken clouds", "icon": "04n" }], "clouds": { "all": 77 }, "wind": { "speed": 5.79, "deg": 237 }, "sys": { "pod": "n" }, "dt_txt": "2020-01-01 12:00:00"
         },
         {
             "dt": 1577890800, "main": { "temp": 281.27, "feels_like": 277.71, "temp_min": 281.27, "temp_max": 281.27, "pressure": 1005, "sea_level": 1005, "grnd_level": 997, "humidity": 82, "temp_kf": 0 }, "weather": [{ "id": 500, "main": "Rain", "description": "light rain", "icon": "10n" }], "clouds": { "all": 100 }, "wind": { "speed": 3.54, "deg": 236 }, "rain": { "3h": 0.25 }, "sys": { "pod": "n" }, "dt_txt": "2020-01-01 15:00:00"
@@ -146,8 +145,7 @@ let forecastWeatherObj = {
             "dt": 1578150000, "main": { "temp": 277.95, "feels_like": 271.93, "temp_min": 277.95, "temp_max": 277.95, "pressure": 1019, "sea_level": 1019, "grnd_level": 1011, "humidity": 78, "temp_kf": 0 }, "weather": [{ "id": 803, "main": "Clouds", "description": "broken clouds", "icon": "04n" }], "clouds": { "all": 83 }, "wind": { "speed": 6.04, "deg": 221 }, "sys": { "pod": "n" }, "dt_txt": "2020-01-04 15:00:00"
         },
         {
-            "dt": 1578160800, "main": { "temp": 279.05, "feels_like": 273.08, "temp_min": 279.05, "temp_max": 279.05, "pressure": 1022, "sea_level": 1022, "grnd_level": 1014, "humidity": 71, "temp_kf": 0 }, "weather": [{ "id": 802, "main": "Clouds", "description": "scattered clouds", "icon": "03d" }], "clouds": { "all": 43 }, "wind": { "speed": 5.92, "deg": 219 },
-            "sys": { "pod": "d" }, "dt_txt": "2020-01-04 18:00:00"
+            "dt": 1578160800, "main": { "temp": 279.05, "feels_like": 273.08, "temp_min": 279.05, "temp_max": 279.05, "pressure": 1022, "sea_level": 1022, "grnd_level": 1014, "humidity": 71, "temp_kf": 0 }, "weather": [{ "id": 802, "main": "Clouds", "description": "scattered clouds", "icon": "03d" }], "clouds": { "all": 43 }, "wind": { "speed": 5.92, "deg": 219 }, "sys": { "pod": "d" }, "dt_txt": "2020-01-04 18:00:00"
         },
         {
             "dt": 1578171600, "main": { "temp": 279.94, "feels_like": 274.15, "temp_min": 279.94, "temp_max": 279.94, "pressure": 1021, "sea_level": 1021, "grnd_level": 1013, "humidity": 72, "temp_kf": 0 }, "weather": [{ "id": 500, "main": "Rain", "description": "light rain", "icon": "10d" }], "clouds": { "all": 38 }, "wind": { "speed": 5.91, "deg": 196 }, "rain": { "3h": 0.5 }, "sys": { "pod": "d" }, "dt_txt": "2020-01-04 21:00:00"
@@ -160,7 +158,8 @@ let forecastWeatherObj = {
         "id": 5809844,
         "name": "Seattle",
         "coord": {
-            "lat": 47.6038, "lon": -122.3301
+            "lat": 47.6038,
+            "lon": -122.3301
         },
         "country": "US",
         "population": 608660,
@@ -177,19 +176,39 @@ let currentWeatherObj = {
     },
     "weather": [
         {
-            "id": 803, "main": "Clouds", "description": "broken clouds", "icon": "04n"
+            "id": 803,
+            "main": "Clouds",
+            "description": "broken clouds",
+            "icon": "04n"
         }
     ],
     "base": "stations",
     "main": {
-        "temp": 283.9, "feels_like": 278.31, "temp_min": 282.04, "temp_max": 285.37, "pressure": 1004, "humidity": 81
-    }, "visibility": 16093, "wind": { "speed": 7.2, "deg": 220, "gust": 11.3 }, "clouds": { "all": 75 }, "dt": 1577867176, "sys": { "type": 1, "id": 3417, "country": "US", "sunrise": 1577894250, "sunset": 1577924861 }, "timezone": -28800, "id": 5809844, "name": "Seattle", "cod": 200
+        "temp": 283.9,
+        "feels_like": 278.31,
+        "temp_min": 282.04,
+        "temp_max": 285.37,
+        "pressure": 1004,
+        "humidity": 81
+    },
+    "visibility": 16093,
+    "wind": {
+        "speed": 7.2, "deg": 220, "gust": 11.3
+    },
+    "clouds": {
+        "all": 75
+    },
+    "dt": 1577867176,
+    "sys": {
+        "type": 1, "id": 3417, "country": "US", "sunrise": 1577894250, "sunset": 1577924861
+    }, 
+    "timezone": -28800, "id": 5809844, "name": "Seattle", "cod": 200
 };
 
 let currentUVObj = {
-    // "lat": 47.6,
-    // "lon": -122.33,
-    // "date_iso": "2020-01-01T12:00:00Z",
-    // "date": 1577880000,
-    // "value": 0.58
+    "lat": 47.6,
+    "lon": -122.33,
+    "date_iso": "2020-01-01T12:00:00Z",
+    "date": 1577880000,
+    "value": 0.58
 };
