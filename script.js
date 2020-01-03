@@ -1,6 +1,7 @@
 // HTML elements
 const searchInput = $('#search-input');
 const searchButton = $('#search-button');
+const locateMeButton = $('#locate-me-button');
 const currentCityDiv = $('#current-city');
 const weatherIconImg = $('#weather-icon');
 const temperatureDiv = $('#current-temperature');
@@ -15,7 +16,7 @@ const key = '786953f37f3a1158ba41f05aad533b5b';
 const imperial = '&units=imperial';
 const metric = '&units=metric';
 
-// static listners
+// constant event listeners
 searchButton.on('click', searchButtonPressed);
 searchInput.keypress(function (event) {
   if (event.which === 13) {
