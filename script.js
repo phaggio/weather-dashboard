@@ -36,6 +36,7 @@ locateMeButton.on('click', locateMe);
 
 
 // initial call upon page load
+checkStorage();
 makeApiCallByCity(searchCity);
 searchButton.hide();
 updateRecentCitiesDiv();
@@ -48,7 +49,15 @@ recentCitiesDiv.on('click', function () {
   makeApiCallByCity(city);
 });
 
-
+// check storage for any saved data searched cities
+function checkStorage() {
+  let storedData = JSON.parse(localStorage.getItem('recentCities'));
+  // if (storedEvents !== null) {
+  //     recentCities = storedData;
+  // };
+  recentCities = storedData === null ? recentCities : storedData;
+  console.log(storedData);
+};
 
 
 // function switches search or locate me button on display
@@ -136,11 +145,11 @@ function makeUVIndexApiCall(lat, lon) {
     updateDetailDiv();
     updateForecastDiv();
     searchButton.prop('disabled', false);
-    updateRecentCities();
+    updateRecentCitiesArr();
   });
 };
 
-function updateRecentCities() {
+function updateRecentCitiesArr() {
   let city = currentWeatherObj.name;
   let country = currentWeatherObj.sys.country;
   let string = (city + ', ' + country);
@@ -148,11 +157,10 @@ function updateRecentCities() {
     return;
   } else {
     if (recentCities.length >= 8) {
-      console.log(recentCities.length);
       recentCities.pop();
-      console.log(recentCities.length);
     };
     recentCities.unshift(string);
+    localStorage.setItem('recentCities', JSON.stringify(recentCities));
     updateRecentCitiesDiv();
   };
 };
