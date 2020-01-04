@@ -1,6 +1,6 @@
 // HTML elements
 const searchInput = $('#search-input');
-const searchButton = $('#search-button'); 
+const searchButton = $('#search-button');
 const locateMeButton = $('#locate-me-button');
 const recentCitiesDiv = $('#recent-cities');
 const currentCityDiv = $('#current-city');
@@ -29,7 +29,13 @@ searchInput.keypress(function (event) {
 });
 searchInput.on('keyup', switchButton);
 locateMeButton.on('click', locateMe);
-recentCitiesDiv.on('click', checkRecentCityWeather);
+recentCitiesDiv.on('click', '#recent-city-button', checkRecentCityWeather);
+
+// NEED TO add function to remove city on click !!!
+recentCitiesDiv.on('click', '#remove-city-button', function (event) {
+  let key = $(event.target);
+  console.log(key.data('name'));
+});
 
 
 // initial call upon page load
@@ -155,6 +161,7 @@ function makeUVIndexApiCall(lat, lon) {
   });
 };
 
+// update recentCities array.
 function updateRecentCitiesArr() {
   let city = currentWeatherObj.name;
   let country = currentWeatherObj.sys.country;
@@ -171,15 +178,26 @@ function updateRecentCitiesArr() {
   };
 };
 
+// need to fix remove button.
 // a function that updates recent-cities div
 function updateRecentCitiesDiv() {
   recentCitiesDiv.empty();
   for (i in recentCities) {
+    let cityDiv = $('<div>');
+    cityDiv.attr('class', 'btn-group');
+    cityDiv.attr('role', 'group');
     let city = $('<button>');
+    let removeButton = $('<button>');
+    removeButton.attr('class', 'btn btn-light w-25');
+    removeButton.attr('id', 'remove-city-button');
+    removeButton.attr('data-name', recentCities[i]);
     city.attr('class', 'btn btn-light w-100');
+    city.attr('id', 'recent-city-button');
     city.attr('data-name', recentCities[i]);
     city.text(recentCities[i]);
-    recentCitiesDiv.append(city);
+    cityDiv.append(city);
+    cityDiv.append(removeButton);
+    recentCitiesDiv.append(cityDiv);
   };
 };
 
