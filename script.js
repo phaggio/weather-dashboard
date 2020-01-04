@@ -1,6 +1,6 @@
 // HTML elements
 const searchInput = $('#search-input');
-const searchButton = $('#search-button');
+const searchButton = $('#search-button'); 
 const locateMeButton = $('#locate-me-button');
 const recentCitiesDiv = $('#recent-cities');
 const currentCityDiv = $('#current-city');
@@ -19,9 +19,8 @@ const imperial = '&units=imperial';
 const metric = '&units=metric';
 
 // Global variables
-let searchCity = 'Seattle';
-let recentCities = ['Seattle, US', 'New York, US', 'San Jose, US'];
-
+let recentCities = [];
+let searchCity;
 
 // constant event listeners
 searchButton.on('click', searchButtonPressed);
@@ -32,33 +31,25 @@ searchInput.keypress(function (event) {
 });
 searchInput.on('keyup', switchButton);
 locateMeButton.on('click', locateMe);
-
+recentCitiesDiv.on('click', checkRecentCityWeather);
 
 
 // initial call upon page load
-checkStorage();
-makeApiCallByCity(searchCity);
-searchButton.hide();
-updateRecentCitiesDiv();
+init();
 
 
-recentCitiesDiv.on('click', function () {
-  // event.preventDefault();
-  let city = $(event.target).data('name');
-  console.log(city);
-  makeApiCallByCity(city);
-});
-
-// check storage for any saved data searched cities
-function checkStorage() {
-  let storedData = JSON.parse(localStorage.getItem('recentCities'));
-  // if (storedEvents !== null) {
-  //     recentCities = storedData;
-  // };
-  recentCities = storedData === null ? recentCities : storedData;
-  console.log(storedData);
+function init() {
+  checkStorage();
+  searchCity = recentCities[0] === undefined ? 'Seattle' : recentCities[0];
+  makeApiCallByCity(searchCity);
+  searchButton.hide();
+  updateRecentCitiesDiv();
 };
 
+function checkStorage() {
+  let storedData = JSON.parse(localStorage.getItem('recentCities'));
+  recentCities = storedData === null ? recentCities : storedData;
+};
 
 // function switches search or locate me button on display
 function switchButton() {
@@ -71,14 +62,13 @@ function switchButton() {
   };
 };
 
-// a function that checks for current location weather
+// a function that checks for current location weather.
 function locateMe() {
   if (!navigator.geolocation) {
     clearMainDivs();
     let message = $('<h2>');
     message.text('Geolocation is not supported by your browser ...');
     currentCityDiv.append(message);
-    // console.log('Geolocation is not supported by your browser.');
   } else {
     navigator.geolocation.getCurrentPosition(success, error);
   };
@@ -94,7 +84,6 @@ function locateMe() {
   };
 
   function error() {
-    console.log('Unable to retrieve your location.');
     clearMainDivs();
     let message = $('<h2>');
     message.text('Unable to retrieve your location ...');
@@ -105,14 +94,17 @@ function locateMe() {
 
 // put user input in makeApiCallByCity function
 function searchButtonPressed() {
-  // searchButton.prop('disabled', true);
   event.preventDefault();
   let city = searchInput.val().trim();
   makeApiCallByCity(city);
   searchInput.val('');
 };
 
-var errorMessage;
+// function that checks event target's weather from user click.
+function checkRecentCityWeather() {
+  let city = $(event.target).data('name');
+  makeApiCallByCity(city);
+};
 
 // a function that makes weather api call by city name to openweathermap when user clicks on the search button
 function makeApiCallByCity(city) {
