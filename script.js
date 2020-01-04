@@ -11,8 +11,7 @@ const forecastDiv = $('#forecast');
 const forecastHeader = $('#forecast-header');
 
 // Weather API constant
-const cityWeatherURL = 'https://api.openweathermap.org/data/2.5/weather?q=';
-const coordWeatherURL = 'https://api.openweathermap.org/data/2.5/weather?';
+const currentWeatherURL = 'https://api.openweathermap.org/data/2.5/weather?';
 const cityForecastURL = 'https://api.openweathermap.org/data/2.5/forecast?q=';
 const coordUVIndexURL = 'https://api.openweathermap.org/data/2.5/uvi?';
 const key = '786953f37f3a1158ba41f05aad533b5b';
@@ -111,10 +110,9 @@ function checkRecentCityWeather() {
 // a function that makes weather api call by city name to openweathermap when user clicks on the search button
 function makeApiCallByCity(city) {
   $.ajax({
-    url: cityWeatherURL + city + '&APPID=' + key,
+    url: currentWeatherURL + 'q=' + city + '&APPID=' + key,
     method: 'GET'
   }).then(function (response) {
-    console.log(response);
     currentWeatherObj = response;
     makeUVIndexApiCall(currentWeatherObj.coord.lat, currentWeatherObj.coord.lon);
   });
@@ -129,7 +127,7 @@ function makeApiCallByCity(city) {
 
 function makeApiCallByCoord(lat, lon) {
   $.ajax({
-    url: coordWeatherURL + 'lat=' + lat + '&lon=' + lon + '&APPID=' + key,
+    url: currentWeatherURL + 'lat=' + lat + '&lon=' + lon + '&APPID=' + key,
     method: 'GET'
   }).then(function (response) {
     console.log(response);
@@ -141,7 +139,7 @@ function makeApiCallByCoord(lat, lon) {
 // take lat and lon data from currentWeatherObj and make UV Index API call, then calls div updates
 function makeUVIndexApiCall(lat, lon) {
   $.ajax({
-    url: coordUVIndexURL + '&APPID=' + key + '&lat=' + lat + '&lon=' + lon,
+    url: coordUVIndexURL + '&lat=' + lat + '&lon=' + lon + '&APPID=' + key,
     method: 'GET'
   }).then(function (response) {
     currentUVObj = response;
@@ -149,7 +147,6 @@ function makeUVIndexApiCall(lat, lon) {
     updateCurrentTempDiv();
     updateDetailDiv();
     updateForecastDiv();
-    searchButton.prop('disabled', false);
     updateRecentCitiesArr();
   });
 };
