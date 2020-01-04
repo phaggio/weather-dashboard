@@ -114,24 +114,29 @@ function makeApiCallByCity(city) {
     method: 'GET'
   }).then(function (response) {
     currentWeatherObj = response;
-    makeUVIndexApiCall(currentWeatherObj.coord.lat, currentWeatherObj.coord.lon);
-  });
-
-  $.ajax({
-    url: cityForecastURL + city + '&APPID=' + key,
-    method: 'GET'
-  }).then(function (response) {
-    forecastWeatherObj = response;
+    let city = currentWeatherObj.name + ', ' + currentWeatherObj.sys.country;
+    weatherForecastByCity(city);
   });
 };
 
+// NEED TO FIX forecast out of sync
 function makeApiCallByCoord(lat, lon) {
   $.ajax({
     url: currentWeatherURL + 'lat=' + lat + '&lon=' + lon + '&APPID=' + key,
     method: 'GET'
   }).then(function (response) {
-    console.log(response);
     currentWeatherObj = response;
+    let city = currentWeatherObj.name + ', ' + currentWeatherObj.sys.country;
+    weatherForecastByCity(city);
+  });
+};
+
+function weatherForecastByCity(city) {
+  $.ajax({
+    url: cityForecastURL + city + '&APPID=' + key,
+    method: 'GET'
+  }).then(function (response) {
+    forecastWeatherObj = response;
     makeUVIndexApiCall(currentWeatherObj.coord.lat, currentWeatherObj.coord.lon);
   });
 };

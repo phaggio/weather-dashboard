@@ -200,9 +200,16 @@ let currentWeatherObj = {
     },
     "dt": 1577867176,
     "sys": {
-        "type": 1, "id": 3417, "country": "US", "sunrise": 1577894250, "sunset": 1577924861
-    }, 
-    "timezone": -28800, "id": 5809844, "name": "Seattle", "cod": 200
+        "type": 1,
+        "id": 3417,
+        "country": "US", 
+        "sunrise": 1577894250, 
+        "sunset": 1577924861
+    },
+    "timezone": -28800,
+    "id": 5809844,
+    "name": "Seattle",
+    "cod": 200
 };
 
 let currentUVObj = {
