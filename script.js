@@ -15,8 +15,6 @@ const currentWeatherURL = 'https://api.openweathermap.org/data/2.5/weather?';
 const cityForecastURL = 'https://api.openweathermap.org/data/2.5/forecast?q=';
 const coordUVIndexURL = 'https://api.openweathermap.org/data/2.5/uvi?';
 const key = '786953f37f3a1158ba41f05aad533b5b';
-const imperial = '&units=imperial';
-const metric = '&units=metric';
 
 // Global variables
 let recentCities = [];
@@ -107,7 +105,7 @@ function checkRecentCityWeather() {
   makeApiCallByCity(city);
 };
 
-// a function that makes weather api call by city name to openweathermap when user clicks on the search button
+// api call first out of three. call by city name. for current weather.
 function makeApiCallByCity(city) {
   $.ajax({
     url: currentWeatherURL + 'q=' + city + '&APPID=' + key,
@@ -119,7 +117,7 @@ function makeApiCallByCity(city) {
   });
 };
 
-// NEED TO FIX forecast out of sync
+// api call first out of three. call by coord. for current weather.
 function makeApiCallByCoord(lat, lon) {
   $.ajax({
     url: currentWeatherURL + 'lat=' + lat + '&lon=' + lon + '&APPID=' + key,
@@ -131,6 +129,7 @@ function makeApiCallByCoord(lat, lon) {
   });
 };
 
+// api call second out of three. call for forecast data.
 function weatherForecastByCity(city) {
   $.ajax({
     url: cityForecastURL + city + '&APPID=' + key,
@@ -141,7 +140,7 @@ function weatherForecastByCity(city) {
   });
 };
 
-// take lat and lon data from currentWeatherObj and make UV Index API call, then calls div updates
+// api call third out of three. call by coord. for uv index.
 function makeUVIndexApiCall(lat, lon) {
   $.ajax({
     url: coordUVIndexURL + '&lat=' + lat + '&lon=' + lon + '&APPID=' + key,
