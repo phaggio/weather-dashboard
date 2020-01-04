@@ -5,8 +5,8 @@ const locateMeButton = $('#locate-me-button');
 const recentCitiesDiv = $('#recent-cities');
 const currentCityDiv = $('#current-city');
 const weatherIconImg = $('#weather-icon');
-const temperatureDiv = $('#current-temperature');
-const detailDiv = $('#current-detail');
+const currentTemperatureDiv = $('#current-temperature');
+const currentDetailDiv = $('#current-detail');
 const forecastDiv = $('#forecast');
 
 // Weather API constant
@@ -71,10 +71,14 @@ function switchButton() {
   };
 };
 
-// test current location function
+// a function that checks for current location weather
 function locateMe() {
   if (!navigator.geolocation) {
-    console.log('Geolocation is not supported by your browser.');
+    clearMainDivs();
+    let message = $('<h2>');
+    message.text('Geolocation is not supported by your browser ...');
+    currentCityDiv.append(message);
+    // console.log('Geolocation is not supported by your browser.');
   } else {
     navigator.geolocation.getCurrentPosition(success, error);
   };
@@ -82,12 +86,19 @@ function locateMe() {
   function success(position) {
     let latitude = position.coords.latitude;
     let longitude = position.coords.longitude;
-    console.log(latitude, longitude);
+    clearMainDivs();
+    let message = $('<h2>');
+    message.text('Getting your local weather ...');
+    currentCityDiv.append(message);
     makeApiCallByCoord(latitude, longitude);
   };
 
   function error() {
     console.log('Unable to retrieve your location.');
+    clearMainDivs();
+    let message = $('<h2>');
+    message.text('Unable to retrieve your location ...');
+    currentCityDiv.append(message);
   };
 };
 
@@ -193,7 +204,7 @@ function updateCurrentCityDiv() {
 };
 
 function updateCurrentTempDiv() {
-  temperatureDiv.empty();
+  currentTemperatureDiv.empty();
   let currentTemp = kelvinToFahrenheit(currentWeatherObj.main.temp);
   let feelsLikeTemp = kelvinToFahrenheit(currentWeatherObj.main.feels_like);
   let highTemp = kelvinToFahrenheit(currentWeatherObj.main.temp_max);
@@ -202,11 +213,11 @@ function updateCurrentTempDiv() {
     + "Feels like: " + feelsLikeTemp + "<br>"
     + "High: " + highTemp + "<br>"
     + "Low: " + lowTemp + "<br></p>";
-  temperatureDiv.append(html);
+  currentTemperatureDiv.append(html);
 };
 
 function updateDetailDiv() {
-  detailDiv.empty();
+  currentDetailDiv.empty();
   let sunrise = convertUTC(currentWeatherObj.sys.sunrise, currentWeatherObj.timezone).format('h:mm a');
   let sunset = convertUTC(currentWeatherObj.sys.sunset, currentWeatherObj.timezone).format("h:mm a");
   let humidity = currentWeatherObj.main.humidity + '%';
@@ -217,7 +228,7 @@ function updateDetailDiv() {
     + "Humidity: " + humidity + "<br>"
     + "Wind Speed: " + windSpeed + " mph<br>"
     + "UV Index: " + uvIndex + "</p>";
-  detailDiv.append(html);
+  currentDetailDiv.append(html);
 };
 
 function updateForecastDiv() {
@@ -235,6 +246,14 @@ function updateForecastDiv() {
   };
 };
 
+// function that clears main divs, used in checking current location.
+function clearMainDivs() {
+  currentCityDiv.empty();
+  weatherIconImg.attr('src', '');
+  currentTemperatureDiv.empty();
+  currentDetailDiv.empty();
+  forecastDiv.empty();
+};
 
 
 // a function that takes unix utc and timezone difference and returns to local time
