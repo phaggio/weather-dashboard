@@ -8,6 +8,7 @@ const weatherIconImg = $('#weather-icon');
 const currentTemperatureDiv = $('#current-temperature');
 const currentDetailDiv = $('#current-detail');
 const forecastDiv = $('#forecast');
+const forecastHeader = $('#forecast-header');
 
 // Weather API constant
 const cityWeatherURL = 'https://api.openweathermap.org/data/2.5/weather?q=';
@@ -43,6 +44,7 @@ function init() {
   searchCity = recentCities[0] === undefined ? 'Seattle' : recentCities[0];
   makeApiCallByCity(searchCity);
   searchButton.hide();
+  forecastHeader.hide();
   updateRecentCitiesDiv();
 };
 
@@ -70,16 +72,16 @@ function locateMe() {
     message.text('Geolocation is not supported by your browser ...');
     currentCityDiv.append(message);
   } else {
+    clearMainDivs();
+    let message = $('<h2>');
+    message.text('Getting your local weather ...');
+    currentCityDiv.append(message);
     navigator.geolocation.getCurrentPosition(success, error);
   };
 
   function success(position) {
     let latitude = position.coords.latitude;
     let longitude = position.coords.longitude;
-    clearMainDivs();
-    let message = $('<h2>');
-    message.text('Getting your local weather ...');
-    currentCityDiv.append(message);
     makeApiCallByCoord(latitude, longitude);
   };
 
@@ -225,6 +227,7 @@ function updateDetailDiv() {
 
 function updateForecastDiv() {
   forecastDiv.empty();
+  forecastHeader.show();
   var index = 0;
   for (var i = 0; i < 5; ++i) {
     let html = '<div class="col-4 col-md-2 py-2 mb-2 mx-auto border border-secondary rounded">'
@@ -244,6 +247,7 @@ function clearMainDivs() {
   weatherIconImg.attr('src', '');
   currentTemperatureDiv.empty();
   currentDetailDiv.empty();
+  forecastHeader.hide();
   forecastDiv.empty();
 };
 
