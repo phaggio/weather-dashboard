@@ -40,6 +40,7 @@ makeApiCallByCity(searchCity);
 searchButton.hide();
 updateRecentCitiesDiv();
 
+
 recentCitiesDiv.on('click', function () {
   // event.preventDefault();
   let city = $(event.target).data('name');
@@ -86,10 +87,12 @@ function locateMe() {
 function searchButtonPressed() {
   // searchButton.prop('disabled', true);
   event.preventDefault();
-  searchCity = searchInput.val();
-  makeApiCallByCity(searchCity);
+  let city = searchInput.val().trim();
+  makeApiCallByCity(city);
   searchInput.val('');
 };
+
+var errorMessage;
 
 // a function that makes weather api call by city name to openweathermap when user clicks on the search button
 function makeApiCallByCity(city) {
@@ -97,6 +100,7 @@ function makeApiCallByCity(city) {
     url: cityWeatherURL + city + '&APPID=' + key,
     method: 'GET'
   }).then(function (response) {
+    console.log(response);
     currentWeatherObj = response;
     makeUVIndexApiCall(currentWeatherObj.coord.lat, currentWeatherObj.coord.lon);
   });
@@ -132,10 +136,26 @@ function makeUVIndexApiCall(lat, lon) {
     updateDetailDiv();
     updateForecastDiv();
     searchButton.prop('disabled', false);
+    updateRecentCities();
   });
 };
 
-
+function updateRecentCities() {
+  let city = currentWeatherObj.name;
+  let country = currentWeatherObj.sys.country;
+  let string = (city + ', ' + country);
+  if (recentCities.includes(string)) {
+    return;
+  } else {
+    if (recentCities.length >= 8) {
+      console.log(recentCities.length);
+      recentCities.pop();
+      console.log(recentCities.length);
+    };
+    recentCities.unshift(string);
+    updateRecentCitiesDiv();
+  };
+};
 
 // a function that updates recent-cities div
 function updateRecentCitiesDiv() {
