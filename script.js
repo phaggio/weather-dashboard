@@ -32,8 +32,8 @@ locateMeButton.on('click', locateMe);
 recentCitiesDiv.on('click', '#recent-city-button', checkRecentCityWeather);
 
 // NEED TO add function to remove city on click !!!
-recentCitiesDiv.on('click', '#remove-city-button', function (event) {
-  let key = $(event.target);
+recentCitiesDiv.on('click', '#remove-city-button', function () {
+  let key = $(this);
   console.log(key.data('name'));
 });
 
@@ -107,7 +107,7 @@ function searchButtonPressed() {
 
 // function that checks event target's weather from user click.
 function checkRecentCityWeather() {
-  let city = $(event.target).data('name');
+  let city = $(this).data('name');
   makeApiCallByCity(city);
 };
 
