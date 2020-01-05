@@ -9,6 +9,12 @@ This is a weather dashboard, where user can search for a city and find its curre
 * User can click on the recent city search for the city's weather info
 * User can delete specific recent city search by clicking on the delete button next to the city
 
+### Libraries and Frameworks used
+* Jquery
+* Moment.js
+* Bootstrap
+* Google Fonts
+
 
 ### Contributing
 If you like to contribute, please fork the repository and use a feature branch. Pull requests are warmly welcome.

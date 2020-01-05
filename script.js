@@ -80,7 +80,6 @@ function locateMe() {
   function success(position) {
     let latitude = position.coords.latitude;
     let longitude = position.coords.longitude;
-    // makeApiCallByCoord(latitude, longitude);
     currentWeatherApiCall(null, latitude, longitude);
   };
 
@@ -91,7 +90,6 @@ function locateMe() {
     currentCityDiv.append(message);
   };
 };
-
 
 // put user input in currentWeatherApiCall function
 function searchButtonPressed() {
@@ -234,8 +232,7 @@ function updateCurrentCityDiv() {
   weatherIconImg.attr('src', "./assets/" + currentImgIcon + "@2x.png");
   let html = "<h2>" + city + ", " + country + "</h2>"
     + "<h4>" + currentDate.format("MMM Do, YYYY h:mm a") + "</h4>"
-    + "<p>" + currentDescription + "</p>"
-    + "<hr>";
+    + "<p>" + currentDescription + "</p>" + "<hr>";
   currentCityDiv.append(html);
 };
 
@@ -248,7 +245,7 @@ function updateCurrentTempDiv() {
   let html = "<p> Now: " + currentTemp + "<br>"
     + "Feels like: " + feelsLikeTemp + "<br>"
     + "High: " + highTemp + "<br>"
-    + "Low: " + lowTemp + "<br></p>";
+    + "Low: " + lowTemp + "</p>";
   currentTemperatureDiv.append(html);
 };
 
@@ -275,8 +272,7 @@ function updateForecastDiv() {
     let date = convertUTC(forecastWeatherObj.list[index].dt, forecastWeatherObj.city.timezone);
     let html = '<div class="col-4 col-md-3 col-lg-2 py-2 mb-2 mx-auto border border-secondary rounded">'
       + '<h6 class="text-center">' + date.format('MMM Do') + '</h6>'
-      + '<p class="text-center">' + date.format('dddd') + '</p>'
-      + '<hr>'
+      + '<p class="text-center">' + date.format('dddd') + '</p>' + '<hr>'
       + '<img class="w-100" src="./assets/' + forecastWeatherObj.list[index].weather[0].icon + '@2x.png" alt="weather icon">'
       + '<small class="text-break">' + 'Temperature: <br>' + kelvinToFahrenheit(forecastWeatherObj.list[index].main.temp) + '<br>' + '<hr>'
       + 'Humidity: ' + forecastWeatherObj.list[index].main.humidity + '%</small>' + '</div>';
@@ -304,7 +300,7 @@ function convertUTC(utc, timezone) {
 
 // a function converts Kelvin temperature to Fahrenheit and returns a string
 function kelvinToFahrenheit(kelvin) {
-  var fahrenheit = (kelvin - 273.15) * 9 / 5 + 32;
+  var fahrenheit = (kelvin - 273.15) * (9 / 5) + 32;
   fahrenheit = fahrenheit.toFixed(2);
   fahrenheit = fahrenheit + ' ' + String.fromCharCode(176) + 'F';
   return fahrenheit;
