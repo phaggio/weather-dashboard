@@ -115,11 +115,15 @@ function removeRecentCity() {
 
 // api call first out of three. call by city name. for current weather.
 function makeApiCallByCity(city) {
+  clearMainDivs();
+  let message = $('<h2>').text('Getting weather info ...')
+  currentCityDiv.append(message);
+
   $.ajax({
     url: currentWeatherURL + 'q=' + city + '&APPID=' + key,
     method: 'GET',
     statusCode: {
-      404: function() {
+      404: function () {
         alert('We cannot find that city! (404)')
       }
     }
@@ -136,7 +140,7 @@ function makeApiCallByCoord(lat, lon) {
     url: currentWeatherURL + 'lat=' + lat + '&lon=' + lon + '&APPID=' + key,
     method: 'GET',
     statusCode: {
-      404: function() {
+      404: function () {
         alert('We cannot find that city! (404)')
       }
     }
@@ -227,12 +231,14 @@ function updateCurrentCityDiv() {
   let currentDate = convertUTC(currentWeatherObj.dt, currentWeatherObj.timezone);
   let currentDescription = currentWeatherObj.weather[0].description;
   let currentImgIcon = currentWeatherObj.weather[0].icon;
+  weatherIconImg.attr('src', "./assets/" + currentImgIcon + "@2x.png");
+  weatherIconImg.attr('class', 'border border-secondary rounded w-100');
   let html = "<h2>" + city + ", " + country + "</h2>"
     + "<h4>" + currentDate.format("MMM Do, YYYY h:mm a") + "</h4>"
     + "<p>" + currentDescription + "</p>"
     + "<hr>";
   currentCityDiv.append(html);
-  weatherIconImg.attr('src', "./assets/" + currentImgIcon + "@2x.png");
+  
 };
 
 function updateCurrentTempDiv() {
@@ -268,8 +274,10 @@ function updateForecastDiv() {
   forecastHeader.show();
   var index = 0;
   for (var i = 0; i < 5; ++i) {
+    let date = convertUTC(forecastWeatherObj.list[index].dt, forecastWeatherObj.city.timezone);
     let html = '<div class="col-4 col-md-2 py-2 mb-2 mx-auto border border-secondary rounded">'
-      + '<h5 class="text-center">' + convertUTC(forecastWeatherObj.list[index].dt, forecastWeatherObj.city.timezone).format('MMM Do') + '</h5>'
+      + '<h5 class="text-center">' + date.format('MMM Do') + '</h5>'
+      + '<h6 class="text-center">' + date.format('dddd') + '</h6>'
       + '<hr>'
       + '<img class="w-100" src="./assets/' + forecastWeatherObj.list[index].weather[0].icon + '@2x.png" alt="weather icon">'
       + '<p>' + 'Temperature: <br>' + kelvinToFahrenheit(forecastWeatherObj.list[index].main.temp) + '<br>' + '<hr>'
@@ -288,7 +296,6 @@ function clearMainDivs() {
   forecastHeader.hide();
   forecastDiv.empty();
 };
-
 
 // a function that takes unix utc and timezone difference and returns to local time
 function convertUTC(utc, timezone) {
