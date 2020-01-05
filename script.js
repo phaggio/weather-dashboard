@@ -117,7 +117,12 @@ function removeRecentCity() {
 function makeApiCallByCity(city) {
   $.ajax({
     url: currentWeatherURL + 'q=' + city + '&APPID=' + key,
-    method: 'GET'
+    method: 'GET',
+    statusCode: {
+      404: function() {
+        alert('We cannot find that city! (404)')
+      }
+    }
   }).then(function (response) {
     currentWeatherObj = response;
     let city = currentWeatherObj.name + ', ' + currentWeatherObj.sys.country;
@@ -129,7 +134,12 @@ function makeApiCallByCity(city) {
 function makeApiCallByCoord(lat, lon) {
   $.ajax({
     url: currentWeatherURL + 'lat=' + lat + '&lon=' + lon + '&APPID=' + key,
-    method: 'GET'
+    method: 'GET',
+    statusCode: {
+      404: function() {
+        alert('We cannot find that city! (404)')
+      }
+    }
   }).then(function (response) {
     currentWeatherObj = response;
     let city = currentWeatherObj.name + ', ' + currentWeatherObj.sys.country;
@@ -175,12 +185,10 @@ function updateRecentCitiesArr() {
       recentCities.pop();
     };
     recentCities.unshift(string);
-    // localStorage.setItem('recentCities', JSON.stringify(recentCities));
     updateRecentCitiesDiv();
   };
 };
 
-// need to fix remove button.
 // a function that updates recent-cities div
 function updateRecentCitiesDiv() {
   recentCitiesDiv.empty();
