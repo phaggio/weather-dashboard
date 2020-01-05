@@ -185,20 +185,26 @@ function updateRecentCitiesArr() {
 function updateRecentCitiesDiv() {
   recentCitiesDiv.empty();
   for (i in recentCities) {
-    let cityDiv = $('<div>');
-    cityDiv.attr('class', 'btn-group');
-    cityDiv.attr('role', 'group');
-    let city = $('<button>');
-    let removeButton = $('<button>');
-    removeButton.attr('class', 'btn btn-light w-25');
-    removeButton.attr('id', 'remove-city-button');
-    removeButton.attr('data-name', recentCities[i]);
-    removeButton.attr('data-index', i);
-    city.attr('class', 'btn btn-light w-100');
-    city.attr('id', 'recent-city-button');
-    city.attr('data-name', recentCities[i]);
-    city.attr('data-index', i);
+    let cityDiv = $('<div>').attr({
+      class: 'btn-group',
+      role: 'group'
+    });
+    let city = $('<button>').attr({
+      class: 'btn btn-light w-100',
+      id: 'recent-city-button',
+      'data-name': recentCities[i].toString(),
+      'data-index': i.toString()
+    });
     city.text(recentCities[i]);
+
+    let removeButton = $('<button>').attr({
+      class: 'btn btn-light w-25',
+      id: 'remove-city-button',
+      'data-name': recentCities[i].toString(),
+      'data-index': i.toString()
+    });
+    let removeButtonIcon = $('<i>').attr('class', 'material-icons').text('delete_outline');
+    removeButton.append(removeButtonIcon);
     cityDiv.append(city);
     cityDiv.append(removeButton);
     recentCitiesDiv.append(cityDiv);
