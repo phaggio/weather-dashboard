@@ -40,7 +40,7 @@ init();
 function init() {
   checkStorage();
   searchCity = recentCities[0] === undefined ? 'Seattle' : recentCities[0];
-  makeApiCallByCity(searchCity);
+  currentWeatherApiCall(searchCity);
   searchButton.hide();
   forecastHeader.hide();
   updateRecentCitiesDiv();
@@ -80,7 +80,8 @@ function locateMe() {
   function success(position) {
     let latitude = position.coords.latitude;
     let longitude = position.coords.longitude;
-    makeApiCallByCoord(latitude, longitude);
+    // makeApiCallByCoord(latitude, longitude);
+    currentWeatherApiCall(null, latitude, longitude);
   };
 
   function error() {
@@ -92,18 +93,18 @@ function locateMe() {
 };
 
 
-// put user input in makeApiCallByCity function
+// put user input in currentWeatherApiCall function
 function searchButtonPressed() {
   event.preventDefault();
   let city = searchInput.val().trim();
-  makeApiCallByCity(city);
+  currentWeatherApiCall(city);
   searchInput.val('');
 };
 
 // function that checks event target's weather from user click.
 function checkRecentCityWeather() {
   let city = $(this).data('name');
-  makeApiCallByCity(city);
+  currentWeatherApiCall(city);
 };
 
 // function that removes selected recent city from the recentCities array and update the list.
@@ -113,8 +114,8 @@ function removeRecentCity() {
   updateRecentCitiesDiv();
 };
 
-// api call first out of three. call by city name. for current weather.
-function makeApiCallByCity(city, lat, lon) {
+// first api call for current weather.
+function currentWeatherApiCall(city, lat, lon) {
   clearMainDivs();
   let message = $('<h2>').text('Getting weather info ...')
   currentCityDiv.append(message);
@@ -131,34 +132,27 @@ function makeApiCallByCity(city, lat, lon) {
     }).then(function (response) {
       currentWeatherObj = response;
       let city = currentWeatherObj.name + ', ' + currentWeatherObj.sys.country;
-      weatherForecastByCity(city);
+      forecastApiCall(city);
     });
   } else {
-    console.log('city is null');
-  }
-
-  
-};
-
-// api call first out of three. call by coord. for current weather.
-function makeApiCallByCoord(lat, lon) {
-  $.ajax({
-    url: currentWeatherURL + 'lat=' + lat + '&lon=' + lon + '&APPID=' + key,
-    method: 'GET',
-    statusCode: {
-      404: function () {
-        alert('We cannot find that city! (404)')
+    $.ajax({
+      url: currentWeatherURL + 'lat=' + lat + '&lon=' + lon + '&APPID=' + key,
+      method: 'GET',
+      statusCode: {
+        404: function () {
+          alert('We cannot find that city! (404)')
+        }
       }
-    }
-  }).then(function (response) {
-    currentWeatherObj = response;
-    let city = currentWeatherObj.name + ', ' + currentWeatherObj.sys.country;
-    weatherForecastByCity(city);
-  });
+    }).then(function (response) {
+      currentWeatherObj = response;
+      let city = currentWeatherObj.name + ', ' + currentWeatherObj.sys.country;
+      forecastApiCall(city);
+    });
+  };
 };
 
-// api call second out of three. call for forecast data.
-function weatherForecastByCity(city) {
+// second api call for forecast data.
+function forecastApiCall(city) {
   $.ajax({
     url: cityForecastURL + city + '&APPID=' + key,
     method: 'GET'
