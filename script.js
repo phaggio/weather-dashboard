@@ -30,12 +30,7 @@ searchInput.keypress(function (event) {
 searchInput.on('keyup', switchButton);
 locateMeButton.on('click', locateMe);
 recentCitiesDiv.on('click', '#recent-city-button', checkRecentCityWeather);
-
-// NEED TO add function to remove city on click !!!
-recentCitiesDiv.on('click', '#remove-city-button', function () {
-  let key = $(this);
-  console.log(key.data('name'));
-});
+recentCitiesDiv.on('click', '#remove-city-button', removeRecentCity);
 
 
 // initial call upon page load
@@ -111,6 +106,13 @@ function checkRecentCityWeather() {
   makeApiCallByCity(city);
 };
 
+// function that removes selected recent city from the recentCities array and update the list.
+function removeRecentCity() {
+  let key = $(this).data('index');
+  recentCities.splice(key, 1);
+  updateRecentCitiesDiv();
+};
+
 // api call first out of three. call by city name. for current weather.
 function makeApiCallByCity(city) {
   $.ajax({
@@ -173,7 +175,7 @@ function updateRecentCitiesArr() {
       recentCities.pop();
     };
     recentCities.unshift(string);
-    localStorage.setItem('recentCities', JSON.stringify(recentCities));
+    // localStorage.setItem('recentCities', JSON.stringify(recentCities));
     updateRecentCitiesDiv();
   };
 };
@@ -191,14 +193,17 @@ function updateRecentCitiesDiv() {
     removeButton.attr('class', 'btn btn-light w-25');
     removeButton.attr('id', 'remove-city-button');
     removeButton.attr('data-name', recentCities[i]);
+    removeButton.attr('data-index', i);
     city.attr('class', 'btn btn-light w-100');
     city.attr('id', 'recent-city-button');
     city.attr('data-name', recentCities[i]);
+    city.attr('data-index', i);
     city.text(recentCities[i]);
     cityDiv.append(city);
     cityDiv.append(removeButton);
     recentCitiesDiv.append(cityDiv);
   };
+  localStorage.setItem('recentCities', JSON.stringify(recentCities));
 };
 
 function updateCurrentCityDiv() {
