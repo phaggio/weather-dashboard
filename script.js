@@ -162,7 +162,7 @@ function forecastApiCall(city) {
   });
 };
 
-// api call third out of three. call by coord. for uv index.
+// third api call for uv index, then updates divs.
 function makeUVIndexApiCall(lat, lon) {
   $.ajax({
     url: coordUVIndexURL + '&lat=' + lat + '&lon=' + lon + '&APPID=' + key,
@@ -232,13 +232,11 @@ function updateCurrentCityDiv() {
   let currentDescription = currentWeatherObj.weather[0].description;
   let currentImgIcon = currentWeatherObj.weather[0].icon;
   weatherIconImg.attr('src', "./assets/" + currentImgIcon + "@2x.png");
-  // weatherIconImg.attr('class', 'border border-secondary rounded-circle w-100');
   let html = "<h2>" + city + ", " + country + "</h2>"
     + "<h4>" + currentDate.format("MMM Do, YYYY h:mm a") + "</h4>"
     + "<p>" + currentDescription + "</p>"
     + "<hr>";
   currentCityDiv.append(html);
-  
 };
 
 function updateCurrentTempDiv() {
