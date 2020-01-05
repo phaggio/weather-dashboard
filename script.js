@@ -35,7 +35,9 @@ recentCitiesDiv.on('click', '#remove-city-button', removeRecentCity);
 
 // initial call upon page load
 init();
-
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+  alert('This is mobile device');
+ };
 
 function init() {
   checkStorage();
