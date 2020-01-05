@@ -114,24 +114,30 @@ function removeRecentCity() {
 };
 
 // api call first out of three. call by city name. for current weather.
-function makeApiCallByCity(city) {
+function makeApiCallByCity(city, lat, lon) {
   clearMainDivs();
   let message = $('<h2>').text('Getting weather info ...')
   currentCityDiv.append(message);
 
-  $.ajax({
-    url: currentWeatherURL + 'q=' + city + '&APPID=' + key,
-    method: 'GET',
-    statusCode: {
-      404: function () {
-        alert('We cannot find that city! (404)')
+  if (city !== null) {
+    $.ajax({
+      url: currentWeatherURL + 'q=' + city + '&APPID=' + key,
+      method: 'GET',
+      statusCode: {
+        404: function () {
+          alert('We cannot find that city! (404)')
+        }
       }
-    }
-  }).then(function (response) {
-    currentWeatherObj = response;
-    let city = currentWeatherObj.name + ', ' + currentWeatherObj.sys.country;
-    weatherForecastByCity(city);
-  });
+    }).then(function (response) {
+      currentWeatherObj = response;
+      let city = currentWeatherObj.name + ', ' + currentWeatherObj.sys.country;
+      weatherForecastByCity(city);
+    });
+  } else {
+    console.log('city is null');
+  }
+
+  
 };
 
 // api call first out of three. call by coord. for current weather.
@@ -232,7 +238,7 @@ function updateCurrentCityDiv() {
   let currentDescription = currentWeatherObj.weather[0].description;
   let currentImgIcon = currentWeatherObj.weather[0].icon;
   weatherIconImg.attr('src', "./assets/" + currentImgIcon + "@2x.png");
-  weatherIconImg.attr('class', 'border border-secondary rounded w-100');
+  // weatherIconImg.attr('class', 'border border-secondary rounded-circle w-100');
   let html = "<h2>" + city + ", " + country + "</h2>"
     + "<h4>" + currentDate.format("MMM Do, YYYY h:mm a") + "</h4>"
     + "<p>" + currentDescription + "</p>"
@@ -275,13 +281,13 @@ function updateForecastDiv() {
   var index = 0;
   for (var i = 0; i < 5; ++i) {
     let date = convertUTC(forecastWeatherObj.list[index].dt, forecastWeatherObj.city.timezone);
-    let html = '<div class="col-4 col-md-2 py-2 mb-2 mx-auto border border-secondary rounded">'
-      + '<h5 class="text-center">' + date.format('MMM Do') + '</h5>'
-      + '<h6 class="text-center">' + date.format('dddd') + '</h6>'
+    let html = '<div class="col-4 col-md-3 col-lg-2 py-2 mb-2 mx-auto border border-secondary rounded">'
+      + '<h6 class="text-center">' + date.format('MMM Do') + '</h6>'
+      + '<p class="text-center">' + date.format('dddd') + '</p>'
       + '<hr>'
       + '<img class="w-100" src="./assets/' + forecastWeatherObj.list[index].weather[0].icon + '@2x.png" alt="weather icon">'
-      + '<p>' + 'Temperature: <br>' + kelvinToFahrenheit(forecastWeatherObj.list[index].main.temp) + '<br>' + '<hr>'
-      + 'Humidity: ' + forecastWeatherObj.list[index].main.humidity + '%</p>' + '</div>';
+      + '<small class="text-break">' + 'Temperature: <br>' + kelvinToFahrenheit(forecastWeatherObj.list[index].main.temp) + '<br>' + '<hr>'
+      + 'Humidity: ' + forecastWeatherObj.list[index].main.humidity + '%</small>' + '</div>';
     forecastDiv.append(html);
     index += 8;
   };
