@@ -28,16 +28,14 @@ searchInput.keypress(function (event) {
   };
 });
 searchInput.on('keyup', switchButton);
-locateMeButton.on('click', locateMe);
+locateMeButton.on('click', checkIfMobile);
 recentCitiesDiv.on('click', '#recent-city-button', checkRecentCityWeather);
 recentCitiesDiv.on('click', '#remove-city-button', removeRecentCity);
 
 
 // initial call upon page load
 init();
-if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-  alert('This is mobile device');
- };
+
 
 function init() {
   checkStorage();
@@ -62,6 +60,19 @@ function switchButton() {
     locateMeButton.show();
     searchButton.hide();
   };
+};
+
+function checkIfMobile() {
+  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    // alert('This is mobile device');
+    locateMe();
+  } else {
+    locateMe();
+  };
+};
+
+function locateMeMobile() {
+  return;
 };
 
 // a function that checks for current location weather.
