@@ -62,6 +62,7 @@ function switchButton() {
   };
 };
 
+// need to figure out why it doesn't work on Safari.
 function checkIfMobile() {
   if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     // alert('This is mobile device');
