@@ -9,8 +9,7 @@ const currentTemperatureDiv = $('#current-temperature');
 const currentDetailDiv = $('#current-detail');
 const forecastDiv = $('#forecast');
 const daysForecastDiv = $('#days-forecast');
-const forecastHeader = $('#forecast-header');
-const daysForecastHeader = $('#5-days-forecast-header');
+const forecastHeader = $('.forecast-header');
 
 // Weather API constant
 const currentWeatherURL = 'https://api.openweathermap.org/data/2.5/weather?';
@@ -45,7 +44,6 @@ function init() {
   currentWeatherApiCall(searchCity);
   searchButton.hide();
   forecastHeader.hide();
-  daysForecastHeader.hide();
   updateRecentCitiesDiv();
 };
 
@@ -272,19 +270,19 @@ function updateDetailDiv() {
 function updateForecastDiv() {
   forecastDiv.empty();
   forecastHeader.show();
-  for (var i = 0; i < 5; ++i) {
+  for (var i = 0; i < 7; ++i) {
     let date = convertUTC(forecastWeatherObj.list[i].dt, forecastWeatherObj.city.timezone);
     let html =
-      '<div class="card d-flex align-items-center px-2 mx-auto mx-lg-1">'
+      '<div class="card d-flex align-items-center px-2 mb-1 mx-auto">'
       + '<div class="card-body p-2">'
-      + '<h6 class="text-center">' + date.format('h:mm a') + ', ' + date.format('MMM Do') + '</h6>'
-      + '<hr>'
+      + '<h6 class="text-center">' + date.format('h:mm a') + '<br>' 
+      + '<small>' + date.format('MMM Do') + '</small>'
       + '</div>'
-      + '<img class="w-100" src="./assets/' + forecastWeatherObj.list[i].weather[0].icon + '@2x.png" alt="weather icon">'
+      + '<img class="mh-75" src="./assets/' + forecastWeatherObj.list[i].weather[0].icon + '@2x.png" alt="weather icon">'
       + '<div class="card-body p-2">'
-      + '<small class="text-break">' + 'Temperature: ' + kelvinToFahrenheit(forecastWeatherObj.list[i].main.temp) + '<br>'
-      + 'Humidity: ' + forecastWeatherObj.list[i].main.humidity + '%</small>'
-      + '</div>'
+      + '<small class="text-break">' + 'Temperature: ' + '<br>' + kelvinToFahrenheit(forecastWeatherObj.list[i].main.temp) + '<br>'
+      + 'Humidity: ' + '<br>' + forecastWeatherObj.list[i].main.humidity + '%</small>'
+      + '</div>'  
       + '</div>'
     forecastDiv.append(html);
   };
@@ -292,7 +290,7 @@ function updateForecastDiv() {
 
 function updateDaysForecastDiv() {
   daysForecastDiv.empty();
-  daysForecastHeader.show();
+  forecastHeader.show();
   var index = 0;
   for (var i = 0; i < 5; ++i) {
     let date = convertUTC(forecastWeatherObj.list[index].dt, forecastWeatherObj.city.timezone);
@@ -322,7 +320,6 @@ function clearMainDivs() {
   currentTemperatureDiv.empty();
   currentDetailDiv.empty();
   forecastHeader.hide();
-  daysForecastHeader.hide();
   forecastDiv.empty();
   daysForecastDiv.empty();
 };
