@@ -273,7 +273,7 @@ function updateForecastDiv() {
   for (var i = 0; i < 6; ++i) {
     let date = convertUTC(forecastWeatherObj.list[i].dt, forecastWeatherObj.city.timezone);
     let html =
-      '<div class="card d-flex align-items-center px-2 mb-1 mx-3 mx-sm-1 mx-md-auto">'
+      '<div class="card d-flex align-items-center px-2 mb-1 mx-0 mx-sm-1 mx-md-auto">'
       + '<div class="card-body p-2">'
       + '<h6 class="text-center">' + date.format('h:mm a') + '<br>' 
       + '<small>' + date.format('MMM Do') + '</small>'
