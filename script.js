@@ -234,7 +234,7 @@ function updateCurrentCityDiv() {
   let currentImgIcon = currentWeatherObj.weather[0].icon;
   weatherIconImg.attr('src', "./assets/" + currentImgIcon + "@2x.png");
   let html = "<h2>" + city + ", " + country + "</h2>"
-    + "<h4>" + currentDate.format("MMM Do, YYYY h:mm a") + "</h4>"
+    + "<h4>" + currentDate.format("MMM Do, YYYY") + '<br>' + currentDate.format("h:mm a") + "</h4>"
     + "<p>" + currentDescription + "</p>" + "<hr>";
   currentCityDiv.append(html);
 };
@@ -270,10 +270,10 @@ function updateDetailDiv() {
 function updateForecastDiv() {
   forecastDiv.empty();
   forecastHeader.show();
-  for (var i = 0; i < 7; ++i) {
+  for (var i = 0; i < 6; ++i) {
     let date = convertUTC(forecastWeatherObj.list[i].dt, forecastWeatherObj.city.timezone);
     let html =
-      '<div class="card d-flex align-items-center px-2 mb-1 mx-auto">'
+      '<div class="card d-flex align-items-center px-2 mb-1 mx-3 mx-sm-1 mx-md-auto">'
       + '<div class="card-body p-2">'
       + '<h6 class="text-center">' + date.format('h:mm a') + '<br>' 
       + '<small>' + date.format('MMM Do') + '</small>'
