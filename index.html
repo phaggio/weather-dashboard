@@ -68,9 +68,9 @@
 
                 <!-- current city, icon row -->
                 <div class="row mt-1">
-                    <div class="col-9" id="current-city">
+                    <div class="col-8 col-sm-9 col-md-8 col-lg-7 col-xl-7" id="current-city">
                     </div>
-                    <div class="col-3">
+                    <div class="col-4 col-sm-3 col-xl-3">
                         <img class="w-100" id="weather-icon" src="./assets/02n@2x.png" alt="weather icon">
                     </div>
                 </div>
@@ -84,12 +84,22 @@
                 </div>
                 <!-- end of current weather row -->
 
-                <!-- row 5 days forecast row -->
+                <!-- forecast row -->
                 <div class="row py-2 mt-1">
                     <div class="col-12">
-                        <h5 class="text-center" id="forecast-header">5-Days Forecast</h5>
+                        <h4 class="text-center" id="forecast-header">Forecast</h4>
                         <hr>
-                        <div class="row" id="forecast">
+                        <div class="row" id="forecast"></div>
+                    </div>
+                </div>
+
+                <div class="row py-2 mt-1">
+                    <!-- <div class="align-right">5 days| 10 days</div> -->
+                    <div class="col-12">
+                        <h4 class="text-center" id="5-days-forecast-header">5-Days Forecast</h4>
+                        <hr>
+                        <div id="days-forecast">
+                            <!-- <div class="row border border-primary"></div> -->
                         </div>
                     </div>
                 </div>
@@ -97,8 +107,8 @@
             </div>
             <!-- end of weather column -->
 
-        
-        
+
+
 
 
         </div>
