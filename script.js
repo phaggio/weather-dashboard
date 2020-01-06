@@ -28,7 +28,7 @@ searchInput.keypress(function (event) {
   };
 });
 searchInput.on('keyup', switchButton);
-locateMeButton.on('click', checkIfMobile);
+locateMeButton.on('click', locateMe);
 recentCitiesDiv.on('click', '#recent-city-button', checkRecentCityWeather);
 recentCitiesDiv.on('click', '#remove-city-button', removeRecentCity);
 
@@ -62,20 +62,6 @@ function switchButton() {
   };
 };
 
-// need to figure out why it doesn't work on Safari.
-function checkIfMobile() {
-  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-    // alert('This is mobile device');
-    locateMe();
-  } else {
-    locateMe();
-  };
-};
-
-function locateMeMobile() {
-  return;
-};
-
 // a function that checks for current location weather.
 function locateMe() {
   if (!navigator.geolocation) {
@@ -86,9 +72,10 @@ function locateMe() {
   } else {
     clearMainDivs();
     let message = $('<h2>');
-    message.text('Getting your local weather ...');
+    message.text('Getting your local weather ... (it will timeout after 60 seconds)');
     currentCityDiv.append(message);
-    navigator.geolocation.getCurrentPosition(success, error);
+    let options = {timeout: 60000};
+    navigator.geolocation.getCurrentPosition(success, error, options);
   };
 
   function success(position) {
@@ -99,7 +86,7 @@ function locateMe() {
 
   function error() {
     clearMainDivs();
-    let message = $('<h2>');
+    let message = $('<h2>');  
     message.text('Unable to retrieve your location ...');
     currentCityDiv.append(message);
   };
