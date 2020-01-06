@@ -297,17 +297,18 @@ function updateDaysForecastDiv() {
   for (var i = 0; i < 5; ++i) {
     let date = convertUTC(forecastWeatherObj.list[index].dt, forecastWeatherObj.city.timezone);
     let html =
-      '<div class="row py-1 px-2 m-1 border border-secondary rounded d-flex align-items-center justify-content-between">'
-      + '<div class="row mx-2 my-auto">'
-      + '<div class="my-auto text-left">'
+      '<div class="row py-1 px-2 mb-1 border border-secondary rounded d-flex align-items-center">'
+      + '<div class="col-3">'
       + '<h5 class="px-2">' + date.format('dddd') + '</h5>'
       + '<h6 class="px-2">' + date.format('MMM Do') + '</h6>'
       + '</div>'
+      + '<div class="col-3">'
       + '<img class="mh-25" src="./assets/' + forecastWeatherObj.list[index].weather[0].icon + '@2x.png" alt="weather icon">'
       + '</div>'
-      + '<span class="mw-25"></span>'
-      + '<p class="text-break mx-2 px-2">' + 'Temperature: ' + kelvinToFahrenheit(forecastWeatherObj.list[index].main.temp) + '<br>'
+      + '<div class="col-6">'
+      + '<p class="text-break px-2">' + 'Temperature: ' + kelvinToFahrenheit(forecastWeatherObj.list[index].main.temp) + '<br>'
       + 'Humidity: ' + forecastWeatherObj.list[index].main.humidity + '%</p>'
+      + '</div>'
       + '</div>'
     daysForecastDiv.append(html);
     index += 8;
