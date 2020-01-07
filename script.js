@@ -28,7 +28,11 @@ let searchCity = 'Taipei';
 searchButton.on('click', searchButtonPressed);
 searchInput.keypress(function (event) {
   if (event.which === 13) {
-    searchButtonPressed();
+    if (searchInput.val().trim() === '') {
+      locateMe();
+    } else {
+      searchButtonPressed();
+    };
   };
 });
 searchInput.on('keyup', switchButton);
@@ -57,7 +61,7 @@ function checkStorage() {
 
 // function switches search or locate me button on display
 function switchButton() {
-  if (searchInput.val()) {
+  if (searchInput.val().trim()) {
     locateMeButton.hide();
     searchButton.show();
   } else {

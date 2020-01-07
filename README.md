@@ -24,6 +24,7 @@ Many cities have the same name, so for the best result, include the country code
 ## Features
 * User can input desire name of the city (e.g. 'city name, country code') and click on the search button or press enter to get its current and forecast weather
 * When search field is empty, search button is hidden and a location button is shown instead, user can click on the location button for current location's weather info
+* If city is not found (incorrect name or typo), it will alert the user
 * If the it takes too long to get your current location, (more than 60 seconds), the request will time out and display the time out message
 * Most recent 8 city searches are saved in the 'Recent cities' section
 * User can click on the recent city search for the city's weather info
