@@ -18,8 +18,11 @@ const coordUVIndexURL = 'https://api.openweathermap.org/data/2.5/uvi?';
 const key = '786953f37f3a1158ba41f05aad533b5b';
 
 // Global variables
+let currentWeatherObj = {};
+let currentUVObj = {};
+let forecastWeatherObj = {};
 let recentCities = [];
-let searchCity;
+let searchCity = 'Taipei';
 
 // constant event listeners
 searchButton.on('click', searchButtonPressed);
@@ -40,7 +43,7 @@ init();
 
 function init() {
   checkStorage();
-  searchCity = recentCities[0] === undefined ? 'Seattle' : recentCities[0];
+  searchCity = recentCities[0] === undefined ? searchCity : recentCities[0];
   currentWeatherApiCall(searchCity);
   searchButton.hide();
   forecastHeader.hide();
@@ -72,9 +75,10 @@ function locateMe() {
     currentCityDiv.append(message);
   } else {
     clearMainDivs();
-    let message = $('<h2>');
-    message.text('Getting your local weather ... (timeout after 60 seconds)');
+    let message = $('<h2>').text('Getting your local weather...');
+    let timeoutMessage = $('<h4>').text('(timeout after 60 seconds)');
     currentCityDiv.append(message);
+    currentCityDiv.append(timeoutMessage);
     let options = { timeout: 60000 };
     navigator.geolocation.getCurrentPosition(success, error, options);
   };
