@@ -4,6 +4,21 @@ application link: https://phaggio.github.io/weather-dashboard/
 ## Overview
 This is a weather dashboard, where user can search for a city and find its current weather condition, 3-hour interval forecast, and 5-days weather forecast of the city.
 
+The current weather info includes:
+* current temperature
+* feel like temperature
+* high temperature of the remainder of the day
+* low temperature of the remainder of the day
+* sunrise time
+* sunset time
+* humidity
+* wind speed (mph)
+* UV index
+
+Forecast includes: 
+* temperature and humidity in a 3-hour interval for the next 18 hours
+* temperature and humidity of the next 5 days
+
 Many cities have the same name, so it is best to include the country code when you search for a city (e.g. search 'San Jose, US').
 
 ## Features
