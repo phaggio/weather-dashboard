@@ -29,6 +29,7 @@ Many cities have the same name, so for the best result, include the country code
 * Most recent 8 city searches are saved in the 'Recent cities' section
 * User can click on the recent city search for the city's weather info
 * User can delete specific recent city search by clicking on the delete button next to the city
+* User can choose number of days (3 or 5) in weather forecast 
 
 ## Libraries and Frameworks used
 * Jquery

@@ -23,7 +23,8 @@ let currentWeatherObj = {};
 let currentUVObj = {};
 let forecastWeatherObj = {};
 let recentCities = [];
-let searchCity = 'Taipei';
+let searchCity = 'Seattle';
+let daysForecast = 3;
 
 // constant event listeners
 searchButton.on('click', searchButtonPressed);
@@ -40,18 +41,11 @@ searchInput.on('keyup', switchButton);
 locateMeButton.on('click', locateMe);
 recentCitiesDiv.on('click', '#recent-city-button', checkRecentCityWeather);
 recentCitiesDiv.on('click', '#remove-city-button', removeRecentCity);
+forecastDaysButtons.on('click', 'input', updateDaysForecast);
 
 
 // initial call upon page load
 init();
-
-
-forecastDaysButtons.on('click', 'input', function () {
-  let selectedDays = $(this).data('name');
-  console.log(selectedDays);
-  updateDaysForecastDiv(selectedDays);
-});
-
 
 
 function init() {
@@ -116,6 +110,13 @@ function searchButtonPressed() {
   let city = searchInput.val().trim();
   currentWeatherApiCall(city);
   searchInput.val('');
+};
+
+// update number of days in forecast days
+function updateDaysForecast() {
+  let selectedDays = $(this).data('name');
+  daysForecast = selectedDays;
+  updateDaysForecastDiv();
 };
 
 // function that checks event target's weather from user click.
@@ -305,14 +306,13 @@ function updateForecastDiv() {
   };
 };
 
-function updateDaysForecastDiv(number) {
-  let days = number === undefined ? 3 : number;
+function updateDaysForecastDiv() {
   daysForecastDiv.empty();
   let header = $('#days-forecast-header');
-  header.text(days + '-Days Forecast');
+  header.text(daysForecast + '-Days Forecast');
   forecastHeader.show();
   var index = 7;
-  for (var i = 0; i < days; ++i) {
+  for (var i = 0; i < daysForecast; ++i) {
     let date = convertUTC(forecastWeatherObj.list[index].dt, forecastWeatherObj.city.timezone);
     let html =
       '<div class="row py-1 px-sm-2 mb-1 border border-secondary rounded d-flex align-items-center">'
