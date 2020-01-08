@@ -45,6 +45,8 @@ recentCitiesDiv.on('click', '#remove-city-button', removeRecentCity);
 init();
 
 
+
+
 function init() {
   checkStorage();
   searchCity = recentCities[0] === undefined ? searchCity : recentCities[0];
@@ -299,7 +301,7 @@ function updateForecastDiv() {
 function updateDaysForecastDiv() {
   daysForecastDiv.empty();
   forecastHeader.show();
-  var index = 0;
+  var index = 7;
   for (var i = 0; i < 5; ++i) {
     let date = convertUTC(forecastWeatherObj.list[index].dt, forecastWeatherObj.city.timezone);
     let html =
@@ -307,6 +309,7 @@ function updateDaysForecastDiv() {
       + '<div class="col-3">'
       + '<h5 class="px-sm-2">' + date.format('dddd') + '</h5>'
       + '<h6 class="px-sm-2">' + date.format('MMM Do') + '</h6>'
+      // + '<h6 class="px-sm-2">' + date.format('h:mm a') + '</h6>'
       + '</div>'
       + '<div class="col-3">'
       + '<img class="mh-25" src="./assets/' + forecastWeatherObj.list[index].weather[0].icon + '@2x.png" alt="weather icon">'
