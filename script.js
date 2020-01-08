@@ -47,10 +47,9 @@ init();
 
 
 forecastDaysButtons.on('click', 'input', function () {
-
   let selectedDays = $(this).data('name');
   console.log(selectedDays);
-  updateDaysForecastDiv();
+  updateDaysForecastDiv(selectedDays);
 });
 
 
@@ -122,7 +121,6 @@ function searchButtonPressed() {
 // function that checks event target's weather from user click.
 function checkRecentCityWeather() {
   let city = $(this).data('name');
-  console.log($(this))
   currentWeatherApiCall(city);
 };
 
@@ -307,18 +305,20 @@ function updateForecastDiv() {
   };
 };
 
-function updateDaysForecastDiv() {
+function updateDaysForecastDiv(number) {
+  let days = number === undefined ? 3 : number;
   daysForecastDiv.empty();
+  let header = $('#days-forecast-header');
+  header.text(days + '-Days Forecast');
   forecastHeader.show();
   var index = 7;
-  for (var i = 0; i < 5; ++i) {
+  for (var i = 0; i < days; ++i) {
     let date = convertUTC(forecastWeatherObj.list[index].dt, forecastWeatherObj.city.timezone);
     let html =
       '<div class="row py-1 px-sm-2 mb-1 border border-secondary rounded d-flex align-items-center">'
       + '<div class="col-3">'
       + '<h5 class="px-sm-2">' + date.format('dddd') + '</h5>'
       + '<h6 class="px-sm-2">' + date.format('MMM Do') + '</h6>'
-      // + '<h6 class="px-sm-2">' + date.format('h:mm a') + '</h6>'
       + '</div>'
       + '<div class="col-3">'
       + '<img class="mh-25" src="./assets/' + forecastWeatherObj.list[index].weather[0].icon + '@2x.png" alt="weather icon">'
