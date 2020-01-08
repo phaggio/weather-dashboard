@@ -96,10 +96,19 @@
                 <div class="row py-2 mt-1">
                     <!-- <div class="align-right">5 days| 10 days</div> -->
                     <div class="col-12">
+                        <div class="row d-flex justify-content-end forecast-header">
+                            <div class="btn-group btn-group-sm btn-group-toggle forecast-header" id="forecast-days" data-toggle="buttons">
+                                <label class="btn btn-secondary active">
+                                    <input class="options" type="radio" name="options" data-name="5" autocomplete="off" checked>5 Days
+                                </label>
+                                <label class="btn btn-secondary">
+                                    <input class="options" type="radio" name="options" data-name="10" autocomplete="off"> 10 Days
+                                </label>
+                            </div>
+                        </div>
                         <h4 class="text-center forecast-header">5-Days Forecast</h4>
                         <hr class="forecast-header">
                         <div class="container" id="days-forecast">
-                            <!-- <div class="row border border-primary"></div> -->
                         </div>
                     </div>
                 </div>
@@ -131,6 +140,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+
     <script src="./script.js"></script>
 </body>
 

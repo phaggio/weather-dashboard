@@ -10,6 +10,7 @@ const currentDetailDiv = $('#current-detail');
 const forecastDiv = $('#forecast');
 const daysForecastDiv = $('#days-forecast');
 const forecastHeader = $('.forecast-header');
+const forecastDaysButtons = $('#forecast-days');
 
 // Weather API constant
 const currentWeatherURL = 'https://api.openweathermap.org/data/2.5/weather?';
@@ -44,6 +45,13 @@ recentCitiesDiv.on('click', '#remove-city-button', removeRecentCity);
 // initial call upon page load
 init();
 
+
+forecastDaysButtons.on('click', 'input', function () {
+
+  let selectedDays = $(this).data('name');
+  console.log(selectedDays);
+  updateDaysForecastDiv();
+});
 
 
 
@@ -114,6 +122,7 @@ function searchButtonPressed() {
 // function that checks event target's weather from user click.
 function checkRecentCityWeather() {
   let city = $(this).data('name');
+  console.log($(this))
   currentWeatherApiCall(city);
 };
 
