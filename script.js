@@ -25,7 +25,7 @@ let currentUVObj = {};
 let forecastWeatherObj = {};
 let recentCities = [];
 let searchCity = 'Seattle';
-let searchCountry = 'us';
+let searchCountry = 'US';
 let daysForecast = 3;
 
 // constant event listeners
@@ -53,7 +53,6 @@ init();
 
 function init() {
   checkStorage();
-  searchCity = recentCities[0] === undefined ? searchCity : recentCities[0];
   currentWeatherApiCall(searchCity);
   searchButton.hide();
   forecastHeader.hide();
@@ -63,6 +62,10 @@ function init() {
 function checkStorage() {
   let storedData = JSON.parse(localStorage.getItem('recentCities'));
   recentCities = storedData === null ? recentCities : storedData;
+  if (recentCities[0].slice(0, recentCities[0].indexOf(',')) !== undefined) {
+    searchCity = (recentCities[0].slice(0, recentCities[0].indexOf(',')));
+    searchCountry = (recentCities[0].substring(recentCities[0].indexOf(',') + 1).trim());
+  };
 };
 
 // function switches search or locate me button on display
@@ -171,6 +174,7 @@ function currentWeatherApiCall(city, lat, lon) {
       }
     }).then(function (response) {
       currentWeatherObj = response;
+      searchCountry = response.sys.country;
       let city = currentWeatherObj.name + ', ' + currentWeatherObj.sys.country;
       forecastApiCall(city);
     });
@@ -180,7 +184,7 @@ function currentWeatherApiCall(city, lat, lon) {
 // second api call for forecast data.
 function forecastApiCall(city) {
   $.ajax({
-    url: cityForecastURL + city + '&APPID=' + key,
+    url: cityForecastURL + city + ',' + searchCountry+ '&APPID=' + key,
     method: 'GET'
   }).then(function (response) {
     forecastWeatherObj = response;
