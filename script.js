@@ -2,6 +2,7 @@
 const searchInput = $('#search-input');
 const searchButton = $('#search-button');
 const locateMeButton = $('#locate-me-button');
+const countrySelection = $('#country-select');
 const recentCitiesDiv = $('#recent-cities');
 const currentCityDiv = $('#current-city');
 const weatherIconImg = $('#weather-icon');
@@ -40,6 +41,7 @@ searchInput.keypress(function (event) {
 });
 searchInput.on('keyup', switchButton);
 locateMeButton.on('click', locateMe);
+countrySelection.on('change', updateSearchCountry);
 recentCitiesDiv.on('click', '#recent-city-button', checkRecentCityWeather);
 recentCitiesDiv.on('click', '#remove-city-button', removeRecentCity);
 forecastDaysButtons.on('click', 'input', updateDaysForecast);
@@ -111,6 +113,11 @@ function searchButtonPressed() {
   let city = searchInput.val().trim();
   currentWeatherApiCall(city);
   searchInput.val('');
+};
+
+// update searchCountry
+function updateSearchCountry() {
+  searchCountry = countrySelection.val();
 };
 
 // update number of days in forecast days
@@ -294,14 +301,14 @@ function updateForecastDiv() {
     let html =
       '<div class="card d-flex align-items-center px-2 mb-1 mx-0 mx-sm-1 mx-md-auto">'
       + '<div class="card-body p-2">'
-      + '<h6 class="text-center">' + date.format('h:mm a') + '<br>' 
+      + '<h6 class="text-center">' + date.format('h:mm a') + '<br>'
       + '<small>' + date.format('MMM Do') + '</small>'
       + '</div>'
       + '<img class="mh-75" src="./assets/' + forecastWeatherObj.list[i].weather[0].icon + '@2x.png" alt="weather icon">'
       + '<div class="card-body p-2">'
       + '<small class="text-break">' + 'Temperature: ' + '<br>' + kelvinToFahrenheit(forecastWeatherObj.list[i].main.temp) + '<br>'
       + 'Humidity: ' + '<br>' + forecastWeatherObj.list[i].main.humidity + '%</small>'
-      + '</div>'  
+      + '</div>'
       + '</div>'
     forecastDiv.append(html);
   };
