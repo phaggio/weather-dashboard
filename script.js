@@ -24,6 +24,7 @@ let currentUVObj = {};
 let forecastWeatherObj = {};
 let recentCities = [];
 let searchCity = 'Seattle';
+let searchCountry = 'us';
 let daysForecast = 3;
 
 // constant event listeners
@@ -140,7 +141,7 @@ function currentWeatherApiCall(city, lat, lon) {
 
   if (city !== null) {
     $.ajax({
-      url: currentWeatherURL + 'q=' + city + '&APPID=' + key,
+      url: currentWeatherURL + 'q=' + city + ',' + searchCountry + '&APPID=' + key,
       method: 'GET',
       statusCode: {
         404: function () {
