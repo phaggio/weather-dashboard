@@ -135,7 +135,6 @@ function checkRecentCityWeather() {
   let comma = $(this).data('name').indexOf(',');
   let city = $(this).data('name').slice(0, comma);
   let country = $(this).data('name').substring(comma + 1).trim();
-  console.log(city, country);
   currentWeatherApiCall(city, country);
 };
 
