@@ -53,7 +53,7 @@ init();
 
 function init() {
   checkStorage();
-  currentWeatherApiCall(searchCity);
+  currentWeatherApiCall(searchCity, searchCountry);
   searchButton.hide();
   forecastHeader.hide();
   updateRecentCitiesDiv();
@@ -62,7 +62,7 @@ function init() {
 function checkStorage() {
   let storedData = JSON.parse(localStorage.getItem('recentCities'));
   recentCities = storedData === null ? recentCities : storedData;
-  if (recentCities[0].slice(0, recentCities[0].indexOf(',')) !== undefined) {
+  if (recentCities[0] !== undefined) {
     searchCity = (recentCities[0].slice(0, recentCities[0].indexOf(',')));
     searchCountry = (recentCities[0].substring(recentCities[0].indexOf(',') + 1).trim());
   };
@@ -99,7 +99,7 @@ function locateMe() {
   function success(position) {
     let latitude = position.coords.latitude;
     let longitude = position.coords.longitude;
-    currentWeatherApiCall(null, latitude, longitude);
+    currentWeatherApiCall(null, null, latitude, longitude);
   };
 
   function error() {
@@ -113,8 +113,8 @@ function locateMe() {
 // put user input in currentWeatherApiCall function
 function searchButtonPressed() {
   event.preventDefault();
-  let city = searchInput.val().trim();
-  currentWeatherApiCall(city);
+  searchCity = searchInput.val().trim();
+  currentWeatherApiCall(searchCity, searchCountry);
   searchInput.val('');
 };
 
@@ -132,8 +132,11 @@ function updateDaysForecast() {
 
 // function that checks event target's weather from user click.
 function checkRecentCityWeather() {
-  let city = $(this).data('name');
-  currentWeatherApiCall(city);
+  let comma = $(this).data('name').indexOf(',');
+  let city = $(this).data('name').slice(0, comma);
+  let country = $(this).data('name').substring(comma + 1).trim();
+  console.log(city, country);
+  currentWeatherApiCall(city, country);
 };
 
 // function that removes selected recent city from the recentCities array and update the list.
@@ -144,14 +147,14 @@ function removeRecentCity() {
 };
 
 // first api call for current weather.
-function currentWeatherApiCall(city, lat, lon) {
+function currentWeatherApiCall(city, country, lat, lon) {
   clearMainDivs();
   let message = $('<h2>').text('Getting weather info ...')
   currentCityDiv.append(message);
-
+  country = country === null ? searchCountry : country
   if (city !== null) {
     $.ajax({
-      url: currentWeatherURL + 'q=' + city + ',' + searchCountry + '&APPID=' + key,
+      url: currentWeatherURL + 'q=' + city + ',' + country + '&APPID=' + key,
       method: 'GET',
       statusCode: {
         404: function () {
