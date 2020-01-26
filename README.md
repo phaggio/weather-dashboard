@@ -1,4 +1,7 @@
 # weather-dashboard
+![alt text][logo]
+[logo]:https://raw.githubusercontent.com/phaggio/weather-dashboard/master/screenshot/weather-dashboard.png
+
 application link: https://phaggio.github.io/weather-dashboard/
 
 ## Overview
