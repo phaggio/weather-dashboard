@@ -37,7 +37,7 @@ Many cities have the same name, so for the best result, include the country code
 * User can choose number of days (3 or 5) in weather forecast 
 
 ## Libraries and Frameworks used
-* Jquery
+* jQuery
 * Moment.js
 * Bootstrap
 * Google Fonts

@@ -207,7 +207,6 @@ const updateRecentCitiesArr = () => {
 // a function that updates recent-cities div
 const updateRecentCitiesDiv = () => {
   recentCitiesDiv.empty();
-  console.log(recentCities)
   for (let i = 0; i < recentCities.length; ++i) {
     let cityDiv = $('<div>').attr({
       class: 'btn-group',
