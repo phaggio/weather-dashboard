@@ -2,159 +2,157 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Weather Dashboard</title>
-    <!-- bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <!-- google icon -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Weather Dashboard</title>
+	<!-- bootstrap -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<!-- google icon -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
-    <!-- top nav bar -->
-    <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand mx-auto" href="https://phaggio.github.io/weather-dashboard/">
-            <div class="h3 px-2">Weather Dashboard</div>
-        </a>
-    </nav>
+	<!-- top nav bar -->
+	<nav class="navbar navbar-dark bg-dark">
+		<a class="navbar-brand mx-auto" href="https://phaggio.github.io/weather-dashboard/">
+			<div class="h3 px-2">Weather Dashboard</div>
+		</a>
+	</nav>
 
-    <div class="container-lg">
-        <div class="row">
-
-
-
-            <!-- search city column -->
-            <div class="col-12 col-sm-4 col-md-3 col-lg-3 col-xl-3">
+	<div class="container-lg">
+		<div class="row">
 
 
-                <!-- search city input and button div -->
-                <div class="row p-2 m-1 border border-secondary rounded">
-                    <span class="ml-1 h5">Search for a city: </span>
 
-                    <!-- search form div -->
-                    <div class="input-group">
-                        <input class="form-control" id="search-input" type="text" placeholder="city name"
-                            aria-label="Search">
-                        <div class="input-group-append">
-                            <button class="btn btn-success btn-sm" id="locate-me-button">
-                                <i class="material-icons">
-                                    location_searching
-                                </i>
-                            </button>
-                            <button class="btn btn-primary btn-sm" id="search-button" type="search">
-                                <i class="material-icons">search</i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- country selection drop down -->
-                    <div class="input-group">
-                        <select class="custom-select" id="country-select">
-                            <option value="us" selected>Choose a country</option>
-                            <option value="us">United States</option>
-                            <option value="ca">Canada</option>
-                            <option value="uk">United Kingdom</option>
-                        </select>
-                    </div>
-                    <small class="ml-1">Default country: US</small>
-                </div>
-
-                <!-- recent city list -->
-                <div class="row p-2 m-1 border border-secondary rounded">
-                    Recent cities
-                    <ul class="list-group w-100" id="recent-cities">
-                    </ul>
-                </div>
-
-            </div>
-            <!-- end of search column -->
+			<!-- search city column -->
+			<div class="col-12 col-sm-4 col-md-3 col-lg-3 col-xl-3">
 
 
-            <!-- weather column -->
-            <div class="col-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
+				<!-- search city input and button div -->
+				<div class="row p-2 m-1 border border-secondary rounded">
+					<span class="ml-1 h5">Search for a city: </span>
 
-                <!-- current city, icon row -->
-                <div class="row mt-1">
-                    <div class="col-8 col-sm-9 col-md-8 col-lg-7 col-xl-7" id="current-city">
-                    </div>
-                    <div class="col-4 col-sm-3 col-xl-3">
-                        <img class="w-100" id="weather-icon" src="./assets/02n@2x.png" alt="weather icon">
-                    </div>
-                </div>
+					<!-- search form div -->
+					<div class="input-group">
+						<input class="form-control" id="search-input" type="text" placeholder="city name" aria-label="Search">
+						<div class="input-group-append">
+							<button class="btn btn-success btn-sm" id="locate-me-button">
+								<i class="material-icons">
+									location_searching
+								</i>
+							</button>
+							<button class="btn btn-primary btn-sm" id="search-button" type="search">
+								<i class="material-icons">search</i>
+							</button>
+						</div>
+					</div>
 
-                <!-- current weather row -->
-                <div class="row mt-1">
-                    <div class="col-12 col-sm-6" id="current-temperature">
-                    </div>
-                    <div class="col-12 col-sm-6" id="current-detail">
-                    </div>
-                </div>
-                <!-- end of current weather row -->
+					<!-- country selection drop down -->
+					<div class="input-group">
+						<select class="custom-select" id="country-select">
+							<option value="us" selected>Choose a country</option>
+							<option value="us">United States</option>
+							<option value="ca">Canada</option>
+							<option value="uk">United Kingdom</option>
+						</select>
+					</div>
+					<small class="ml-1">Default country: US</small>
+				</div>
 
-                <!-- forecast row -->
-                <div class="row py-2 mt-1">
-                    <div class="col-12">
-                        <h4 class="text-center forecast-header">Forecast</h4>
-                        <hr class="forecast-header">
-                        <div class="row" id="forecast"></div>
-                    </div>
-                </div>
+				<!-- recent city list -->
+				<div class="row p-2 m-1 border border-secondary rounded">
+					Recent cities
+					<ul class="list-group w-100" id="recent-cities">
+					</ul>
+				</div>
 
-                <div class="row py-2 mt-1">
-                    <!-- <div class="align-right">5 days| 10 days</div> -->
-                    <div class="col-12">
-                        <div class="row d-flex justify-content-end forecast-header">
-                            <div class="btn-group btn-group-sm btn-group-toggle forecast-header" id="forecast-days"
-                                data-toggle="buttons">
-                                <label class="btn btn-secondary active">
-                                    <input class="options" type="radio" name="options" data-name="3" autocomplete="off"
-                                        checked>3 Days
-                                </label>
-                                <label class="btn btn-secondary">
-                                    <input class="options" type="radio" name="options" data-name="5" autocomplete="off">
-                                    5 Days
-                                </label>
-                            </div>
-                        </div>
-                        <h4 class="text-center forecast-header" id="days-forecast-header">3-Days Forecast</h4>
-                        <hr class="forecast-header">
-                        <div class="container" id="days-forecast">
-                        </div>
-                    </div>
-                </div>
+			</div>
+			<!-- end of search column -->
 
-            </div>
-            <!-- end of weather column -->
+
+			<!-- weather column -->
+			<div class="col-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
+
+				<!-- current city, icon row -->
+				<div class="row mt-1">
+					<div class="col-8 col-sm-9 col-md-8 col-lg-7 col-xl-7" id="current-city">
+					</div>
+					<div class="col-4 col-sm-3 col-xl-3">
+						<img class="w-100" id="weather-icon" src="./assets/02n@2x.png" alt="weather icon">
+					</div>
+				</div>
+
+				<!-- current weather row -->
+				<div class="row mt-1">
+					<div class="col-12 col-sm-6" id="current-temperature">
+					</div>
+					<div class="col-12 col-sm-6" id="current-detail">
+					</div>
+				</div>
+				<!-- end of current weather row -->
+
+				<!-- forecast row -->
+				<div class="row py-2 mt-1">
+					<div class="col-12">
+						<h4 class="text-center forecast-header">Forecast</h4>
+						<hr class="forecast-header">
+						<div class="row" id="forecast"></div>
+					</div>
+				</div>
+
+				<div class="row py-2 mt-1">
+					<!-- <div class="align-right">5 days| 10 days</div> -->
+					<div class="col-12">
+						<div class="row d-flex justify-content-end forecast-header">
+							<div class="btn-group btn-group-sm btn-group-toggle forecast-header" id="forecast-days"
+								data-toggle="buttons">
+								<label class="btn btn-secondary active">
+									<input class="options" type="radio" name="options" data-name="3" autocomplete="off" checked>3 Days
+								</label>
+								<label class="btn btn-secondary">
+									<input class="options" type="radio" name="options" data-name="5" autocomplete="off">
+									5 Days
+								</label>
+							</div>
+						</div>
+						<h4 class="text-center forecast-header" id="days-forecast-header">3-Days Forecast</h4>
+						<hr class="forecast-header">
+						<div class="container" id="days-forecast">
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<!-- end of weather column -->
 
 
 
 
 
-        </div>
-        <!-- end of first container row -->
-    </div>
-    <!-- end of main container -->
+		</div>
+		<!-- end of first container row -->
+	</div>
+	<!-- end of main container -->
 
 
 
 
-    <!-- moment javascript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+	<!-- moment javascript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
 
-    <!-- JQuery -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- From Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
+	<!-- JQuery -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<!-- From Bootstrap -->
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
 
-    <script src="./script.js"></script>
+	<script src="./script.js"></script>
 </body>
 
 </html>

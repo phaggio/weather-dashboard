@@ -28,30 +28,7 @@ let searchCity = 'Seattle';
 let searchCountry = 'US';
 let daysForecast = 3;
 
-// constant event listeners
-searchButton.on('click', searchButtonPressed);
-searchInput.keypress(function (event) {
-  if (event.which === 13) {
-    if (searchInput.val().trim() === '') {
-      locateMe();
-    } else {
-      searchButtonPressed();
-    };
-  };
-});
-searchInput.on('keyup', switchButton);
-locateMeButton.on('click', locateMe);
-countrySelection.on('change', updateSearchCountry);
-recentCitiesDiv.on('click', '#recent-city-button', checkRecentCityWeather);
-recentCitiesDiv.on('click', '#remove-city-button', removeRecentCity);
-forecastDaysButtons.on('click', 'input', updateDaysForecast);
-
-
-// initial call upon page load
-init();
-
-
-function init() {
+const init = () => {
   checkStorage();
   currentWeatherApiCall(searchCity, searchCountry);
   searchButton.hide();
@@ -59,7 +36,7 @@ function init() {
   updateRecentCitiesDiv();
 };
 
-function checkStorage() {
+const checkStorage = () => {
   let storedData = JSON.parse(localStorage.getItem('recentCities'));
   recentCities = storedData === null ? recentCities : storedData;
   if (recentCities[0] !== undefined) {
@@ -69,7 +46,7 @@ function checkStorage() {
 };
 
 // function switches search or locate me button on display
-function switchButton() {
+const switchButton = () => {
   if (searchInput.val().trim()) {
     locateMeButton.hide();
     searchButton.show();
@@ -80,7 +57,20 @@ function switchButton() {
 };
 
 // a function that checks for current location weather.
-function locateMe() {
+const locateMe = () => {
+  const success = position => {
+    let latitude = position.coords.latitude;
+    let longitude = position.coords.longitude;
+    currentWeatherApiCall(null, null, latitude, longitude);
+  };
+
+  const error = () => {
+    clearMainDivs();
+    let message = $('<h2>');
+    message.text('Unable to retrieve your location ...');
+    currentCityDiv.append(message);
+  };
+
   if (!navigator.geolocation) {
     clearMainDivs();
     let message = $('<h2>');
@@ -95,43 +85,31 @@ function locateMe() {
     let options = { timeout: 60000 };
     navigator.geolocation.getCurrentPosition(success, error, options);
   };
-
-  function success(position) {
-    let latitude = position.coords.latitude;
-    let longitude = position.coords.longitude;
-    currentWeatherApiCall(null, null, latitude, longitude);
-  };
-
-  function error() {
-    clearMainDivs();
-    let message = $('<h2>');
-    message.text('Unable to retrieve your location ...');
-    currentCityDiv.append(message);
-  };
 };
 
 // put user input in currentWeatherApiCall function
-function searchButtonPressed() {
+const searchButtonPressed = () => {
   event.preventDefault();
   searchCity = searchInput.val().trim();
   currentWeatherApiCall(searchCity, searchCountry);
   searchInput.val('');
+  switchButton();
 };
 
 // update searchCountry
-function updateSearchCountry() {
+const updateSearchCountry = () => {
   searchCountry = countrySelection.val();
 };
 
 // update number of days in forecast days
-function updateDaysForecast() {
+const updateDaysForecast = () => {
   let selectedDays = $(this).data('name');
   daysForecast = selectedDays;
   updateDaysForecastDiv();
 };
 
 // function that checks event target's weather from user click.
-function checkRecentCityWeather() {
+const checkRecentCityWeather = () => {
   let comma = $(this).data('name').indexOf(',');
   let city = $(this).data('name').slice(0, comma);
   let country = $(this).data('name').substring(comma + 1).trim();
@@ -139,14 +117,14 @@ function checkRecentCityWeather() {
 };
 
 // function that removes selected recent city from the recentCities array and update the list.
-function removeRecentCity() {
+const removeRecentCity = () => {
   let key = $(this).data('index');
   recentCities.splice(key, 1);
   updateRecentCitiesDiv();
 };
 
 // first api call for current weather.
-function currentWeatherApiCall(city, country, lat, lon) {
+const currentWeatherApiCall = (city, country, lat, lon) => {
   clearMainDivs();
   let message = $('<h2>').text('Getting weather info ...')
   currentCityDiv.append(message);
@@ -184,9 +162,9 @@ function currentWeatherApiCall(city, country, lat, lon) {
 };
 
 // second api call for forecast data.
-function forecastApiCall(city) {
+const forecastApiCall = city => {
   $.ajax({
-    url: cityForecastURL + city + ',' + searchCountry+ '&APPID=' + key,
+    url: cityForecastURL + city + ',' + searchCountry + '&APPID=' + key,
     method: 'GET'
   }).then(function (response) {
     forecastWeatherObj = response;
@@ -195,7 +173,7 @@ function forecastApiCall(city) {
 };
 
 // third api call for uv index, then updates divs.
-function makeUVIndexApiCall(lat, lon) {
+const makeUVIndexApiCall = (lat, lon) => {
   $.ajax({
     url: coordUVIndexURL + '&lat=' + lat + '&lon=' + lon + '&APPID=' + key,
     method: 'GET'
@@ -211,7 +189,7 @@ function makeUVIndexApiCall(lat, lon) {
 };
 
 // update recentCities array.
-function updateRecentCitiesArr() {
+const updateRecentCitiesArr = () => {
   let city = currentWeatherObj.name;
   let country = currentWeatherObj.sys.country;
   let string = (city + ', ' + country);
@@ -227,9 +205,10 @@ function updateRecentCitiesArr() {
 };
 
 // a function that updates recent-cities div
-function updateRecentCitiesDiv() {
+const updateRecentCitiesDiv = () => {
   recentCitiesDiv.empty();
-  for (i in recentCities) {
+  console.log(recentCities)
+  for (let i = 0; i < recentCities.length; ++i) {
     let cityDiv = $('<div>').attr({
       class: 'btn-group',
       role: 'group'
@@ -257,7 +236,7 @@ function updateRecentCitiesDiv() {
   localStorage.setItem('recentCities', JSON.stringify(recentCities));
 };
 
-function updateCurrentCityDiv() {
+const updateCurrentCityDiv = () => {
   currentCityDiv.empty();
   let city = currentWeatherObj.name;
   let country = currentWeatherObj.sys.country;
@@ -271,7 +250,7 @@ function updateCurrentCityDiv() {
   currentCityDiv.append(html);
 };
 
-function updateCurrentTempDiv() {
+const updateCurrentTempDiv = () => {
   currentTemperatureDiv.empty();
   let currentTemp = kelvinToFahrenheit(currentWeatherObj.main.temp);
   let feelsLikeTemp = kelvinToFahrenheit(currentWeatherObj.main.feels_like);
@@ -284,7 +263,7 @@ function updateCurrentTempDiv() {
   currentTemperatureDiv.append(html);
 };
 
-function updateDetailDiv() {
+const updateDetailDiv = () => {
   currentDetailDiv.empty();
   let sunrise = convertUTC(currentWeatherObj.sys.sunrise, currentWeatherObj.timezone).format('h:mm a');
   let sunset = convertUTC(currentWeatherObj.sys.sunset, currentWeatherObj.timezone).format("h:mm a");
@@ -299,10 +278,10 @@ function updateDetailDiv() {
   currentDetailDiv.append(html);
 };
 
-function updateForecastDiv() {
+const updateForecastDiv = () => {
   forecastDiv.empty();
   forecastHeader.show();
-  for (var i = 0; i < 6; ++i) {
+  for (let i = 0; i < 6; ++i) {
     let date = convertUTC(forecastWeatherObj.list[i].dt, forecastWeatherObj.city.timezone);
     let html =
       '<div class="card d-flex align-items-center px-2 mb-1 mx-0 mx-sm-1 mx-md-auto">'
@@ -320,13 +299,13 @@ function updateForecastDiv() {
   };
 };
 
-function updateDaysForecastDiv() {
+const updateDaysForecastDiv = () => {
   daysForecastDiv.empty();
   let header = $('#days-forecast-header');
   header.text(daysForecast + '-Days Forecast');
   forecastHeader.show();
-  var index = 7;
-  for (var i = 0; i < daysForecast; ++i) {
+  let index = 7;
+  for (let i = 0; i < daysForecast; ++i) {
     let date = convertUTC(forecastWeatherObj.list[index].dt, forecastWeatherObj.city.timezone);
     let html =
       '<div class="row py-1 px-sm-2 mb-1 border border-secondary rounded d-flex align-items-center">'
@@ -348,7 +327,7 @@ function updateDaysForecastDiv() {
 };
 
 // function that clears main divs, used in checking current location.
-function clearMainDivs() {
+const clearMainDivs = () => {
   currentCityDiv.empty();
   weatherIconImg.attr('src', '');
   currentTemperatureDiv.empty();
@@ -359,23 +338,46 @@ function clearMainDivs() {
 };
 
 // a function that takes unix utc and timezone difference and returns to local time
-function convertUTC(utc, timezone) {
+const convertUTC = (utc, timezone) => {
   let localTime = (utc + timezone);
   localTime = moment.unix(localTime).utc(false);
   return (localTime);
 };
 
 // a function converts Kelvin temperature to Fahrenheit and returns a string
-function kelvinToFahrenheit(kelvin) {
-  var fahrenheit = (kelvin - 273.15) * (9 / 5) + 32;
+const kelvinToFahrenheit = kelvin => {
+  let fahrenheit = (kelvin - 273.15) * (9 / 5) + 32;
   fahrenheit = fahrenheit.toFixed(2);
   fahrenheit = fahrenheit + ' ' + String.fromCharCode(176) + 'F';
   return fahrenheit;
 };
 
 // a function that converts meter per second to mile per hour
-function mpsToMph(mps) {
+const mpsToMph = mps => {
   let mph = mps * 60 * 60 / 1609.34;
   mph = mph.toFixed(2);
   return mph;
 };
+
+
+// constant event listeners
+searchButton.on('click', searchButtonPressed);
+searchInput.keypress(function (event) {
+  if (event.which === 13) {
+    if (searchInput.val().trim() === '') {
+      locateMe();
+    } else {
+      searchButtonPressed();
+    };
+  };
+});
+searchInput.on('keyup', switchButton);
+locateMeButton.on('click', locateMe);
+countrySelection.on('change', updateSearchCountry);
+recentCitiesDiv.on('click', '#recent-city-button', checkRecentCityWeather);
+recentCitiesDiv.on('click', '#remove-city-button', removeRecentCity);
+forecastDaysButtons.on('click', 'input', updateDaysForecast);
+
+
+// initial call upon page load
+init();
